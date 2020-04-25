@@ -29,7 +29,7 @@ namespace StudentManagement
             int i = 0;
             SubMenu[i] = new List<SubItem>();
             SubMenu[i].Add(new SubItem("系统管理"));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("系统管理", SubMenu[i], PackIconKind.ShapeAdd), this));
+            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("系统管理", SubMenu[i], PackIconKind.Monitor), this));
             ++i;
             SubMenu[i] = new List<SubItem>();
             SubMenu[i].Add(new SubItem("学籍管理"));
@@ -40,28 +40,31 @@ namespace StudentManagement
             SubMenu[i] = new List<SubItem>();
             SubMenu[i].Add(new SubItem("本学期课表"));
             SubMenu[i].Add(new SubItem("选课管理"));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("选课管理", SubMenu[i], PackIconKind.Person), this));
+            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("选课管理", SubMenu[i], PackIconKind.Cart), this));
             ++i;
             SubMenu[i] = new List<SubItem>();
             SubMenu[i].Add(new SubItem("评估"));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("教学评估", SubMenu[i], PackIconKind.Person), this));
+            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("教学评估", SubMenu[i], PackIconKind.Pencil), this));
             ++i;
             SubMenu[i] = new List<SubItem>();
             SubMenu[i].Add(new SubItem("考务管理"));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("考务管理", SubMenu[i], PackIconKind.Person), this));
+            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("考务管理", SubMenu[i], PackIconKind.Calendar), this));
             ++i;
             SubMenu[i] = new List<SubItem>();
             SubMenu[i].Add(new SubItem("教学资源"));
             SubMenu[i].Add(new SubItem("自习查询"));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("教学资源", SubMenu[i], PackIconKind.Person), this));
+            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("教学资源", SubMenu[i], PackIconKind.Building), this));
             ++i;
             SubMenu[i] = new List<SubItem>();
             SubMenu[i].Add(new SubItem("培养方案完成情况"));
             SubMenu[i].Add(new SubItem("指导性完成计划"));
             SubMenu[i].Add(new SubItem("课程"));
             SubMenu[i].Add(new SubItem("教材"));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("综合查询", SubMenu[i], PackIconKind.Person), this));
-
+            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("综合查询", SubMenu[i], PackIconKind.Magnify), this));
+            ++i;
+            SubMenu[i] = new List<SubItem>();
+            SubMenu[i].Add(new SubItem("缓考考试"));
+            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("缓考考试", SubMenu[i], PackIconKind.Magnify), this));
         }
 
         internal void SwitchScreen(object sender)

@@ -39,5 +39,4 @@ namespace StudentManagement
             _context.SwitchScreen(((SubItem)((ListView)sender).SelectedItem).Screen);
         }
     }
-
 }

@@ -16,6 +16,7 @@ namespace StudentManagement.DropDownMenu
             Header = header;
             SubItems = subItems;
             Icon = icon;
+
         }
 
         public string Header { get; private set; }

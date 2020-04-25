@@ -72,6 +72,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MainPageDesign\UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -83,6 +87,9 @@
     <Compile Include="DropDownMenu\DropDownMenu.cs" />
     <Compile Include="MainPageDesign\SystemManagement.xaml.cs">
       <DependentUpon>SystemManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPageDesign\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

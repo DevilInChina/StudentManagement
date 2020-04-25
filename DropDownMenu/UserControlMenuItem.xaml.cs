@@ -36,7 +36,21 @@ namespace StudentManagement
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _context.SwitchScreen(((SubItem)((ListView)sender).SelectedItem).Screen);
+           if(_context.CurListView != (ListView)sender&& _context.CurListView!=null)
+            {
+                //MessageBox.Show("Clear");
+                _context.CurListView.SelectedItems.Clear();
+                //MessageBox.Show(((SubItem)(_context.CurListView).SelectedItem).Name);
+                _context.SwitchScreen(((SubItem)((ListView)sender).SelectedItem).Screen);
+            }
+            else
+            {
+                if ((SubItem)((ListView)sender).SelectedItem != null)
+                {
+                    _context.SwitchScreen(((SubItem)((ListView)sender).SelectedItem).Screen);
+                }
+            }
+            _context.CurListView = (ListView)sender;
         }
     }
 }

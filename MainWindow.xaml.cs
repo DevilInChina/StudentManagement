@@ -22,17 +22,20 @@ namespace StudentManagement
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ListView CurListView;
+
         public MainWindow()
         {
             InitializeComponent();
+            CurListView = null;
             List<SubItem> []SubMenu = new List<SubItem>[8];
             int i = 0;
             SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("系统管理"));
+            SubMenu[i].Add(new SubItem("系统管理",new SystemManagement()));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("系统管理", SubMenu[i], PackIconKind.Monitor), this));
             ++i;
             SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("学籍管理"));
+            SubMenu[i].Add(new SubItem("学籍管理",new UserControl1()));
             SubMenu[i].Add(new SubItem("学生异动"));
             SubMenu[i].Add(new SubItem("毕业设计"));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("个人管理", SubMenu[i], PackIconKind.Person), this));
@@ -64,18 +67,22 @@ namespace StudentManagement
             ++i;
             SubMenu[i] = new List<SubItem>();
             SubMenu[i].Add(new SubItem("缓考考试"));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("缓考考试", SubMenu[i], PackIconKind.Magnify), this));
+            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("缓考考试", SubMenu[i], PackIconKind.Paper), this));
         }
-
+        
         internal void SwitchScreen(object sender)
         {
             var screen = ((UserControl)sender);
-
             if (screen != null)
             {
                 StackPanelMain.Children.Clear();
                 StackPanelMain.Children.Add(screen);
             }
+            else
+            {
+                
+            }
         }
+
     }
 }

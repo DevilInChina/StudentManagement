@@ -28,7 +28,7 @@ namespace StudentManagement
             for(int i = 0; i < 5; ++i)
             {
                 SubMenu[i] = new List<SubItem>();
-                SubMenu[i].Add(new SubItem("A"));
+                SubMenu[i].Add(new SubItem("SsS"));
                 SubMenu[i].Add(new SubItem("B"));
                 SubMenu[i].Add(new SubItem("C"));
                 SubMenu[i].Add(new SubItem("D"));

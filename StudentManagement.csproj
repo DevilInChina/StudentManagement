@@ -68,6 +68,14 @@
     <Compile Include="DropDownMenu\UserControlMenuItem.xaml.cs">
       <DependentUpon>UserControlMenuItem.xaml</DependentUpon>
     </Compile>
+    <Page Include="MainPageDesign\SelfManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPageDesign\SelfManagementPage\SchoolOriginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPageDesign\SystemManagement.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,6 +93,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DropDownMenu\DropDownMenu.cs" />
+    <Compile Include="MainPageDesign\SelfManagement.xaml.cs">
+      <DependentUpon>SelfManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPageDesign\SelfManagementPage\SchoolOriginPage.xaml.cs">
+      <DependentUpon>SchoolOriginPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPageDesign\SystemManagement.xaml.cs">
       <DependentUpon>SystemManagement.xaml</DependentUpon>
     </Compile>

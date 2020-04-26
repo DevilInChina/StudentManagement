@@ -12,23 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using StudentManagement.MainPageDesign.SystemManagementPage;
+using StudentManagement.MainPageDesign.SelfManagementPage;
 namespace StudentManagement.MainPageDesign
 {
     /// <summary>
-    /// SystemManagement.xaml 的交互逻辑
+    /// SelfManagement.xaml 的交互逻辑
     /// </summary>
-    public partial class SystemManagement : UserControl
+    public partial class SelfManagement : UserControl
     {
-
         UserControl CurrentPage;
-        public SystemManagement(MainWindow prev)
+        public SelfManagement(MainWindow prev)
         {
             InitializeComponent();
             MenuItem s = new MenuItem();
-            s.Click+= new RoutedEventHandler(MenuClick);
-            s.Header = "（学生）常用附件下载";
-            Menu1.Background =new SolidColorBrush(prev.MainThemeColor);
+            s.Click += new RoutedEventHandler(MenuClick);
+            s.Header = "学籍管理";
+            Menu1.Background = new SolidColorBrush(prev.MainThemeColor);
             Menu1.Items.Add(s);
             CurrentPage = null;
         }
@@ -39,9 +38,9 @@ namespace StudentManagement.MainPageDesign
             {
                 //destoryPagee
             }
-            CurrentPage = new DownloadFilePage();
-            SubPanel.Children.Clear();
-            SubPanel.Children.Add(CurrentPage);
+            CurrentPage = new SchoolOriginPage();
+            SystemSubPanel.Children.Clear();
+            SystemSubPanel.Children.Add(CurrentPage);
         }
     }
 }

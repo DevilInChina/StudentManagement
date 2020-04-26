@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using StudentManagement.MainPageDesign.SystemManagementPage;
 namespace StudentManagement.MainPageDesign
 {
     /// <summary>
@@ -20,10 +20,30 @@ namespace StudentManagement.MainPageDesign
     /// </summary>
     public partial class SystemManagement : UserControl
     {
-        public SystemManagement()
+
+        UserControl CurrentPage;
+        public SystemManagement(MainWindow prev)
         {
             InitializeComponent();
-
+            MenuItem s = new MenuItem();
+            s.Click+= new RoutedEventHandler(MenuClick);
+            s.Header = "（学生）常用附件下载";
+            
+            Menu1.Background =new SolidColorBrush(prev.MainThemeColor);
+            Menu1.Items.Add(s);
+            CurrentPage = null;
         }
+        private void MenuClick(object sender, EventArgs e)
+        {
+            //MessageBox.Show("跳转页面");
+            if (CurrentPage == null)
+            {
+                //destoryPage
+            }
+            CurrentPage = new DownloadFilePage();
+            SystemSubPanel.Children.Clear();
+            SystemSubPanel.Children.Add(CurrentPage);
+        }
+
     }
 }

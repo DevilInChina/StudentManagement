@@ -72,7 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainPageDesign\UserControl1.xaml">
+    <Page Include="MainPageDesign\SystemManagementPage\DownloadFilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -88,8 +88,8 @@
     <Compile Include="MainPageDesign\SystemManagement.xaml.cs">
       <DependentUpon>SystemManagement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPageDesign\UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
+    <Compile Include="MainPageDesign\SystemManagementPage\DownloadFilePage.xaml.cs">
+      <DependentUpon>DownloadFilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -127,6 +127,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.3.1.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.3.1.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

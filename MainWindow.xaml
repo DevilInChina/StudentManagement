@@ -9,20 +9,20 @@
         Title="MainWindow" Height="450" Width="800"  WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" MinHeight="46"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <materialDesign:ColorZone Mode="PrimaryMid" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
+        <materialDesign:ColorZone Mode="PrimaryMid" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
             <Grid>
                 <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" HorizontalAlignment="Right" Margin="10"/>
             </Grid>
         </materialDesign:ColorZone>
-        <Grid HorizontalAlignment="Stretch" Grid.Row="1" Background="{StaticResource PrimaryHueMidBrush}">
+        <Grid HorizontalAlignment="Stretch" Grid.Row="1" Background="{StaticResource PrimaryHueMidBrush}" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="326*"/>
@@ -34,10 +34,10 @@
                 <StackPanel x:Name="Menu" Margin="10"/>
             </ScrollViewer>
         </Grid>
-        <StackPanel x:Name="StackPanelMain" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0,0,0,10">
+        <StackPanel x:Name="StackPanelMain" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0,10" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
 
         </StackPanel>
-        
+
 
     </Grid>
 </Window>

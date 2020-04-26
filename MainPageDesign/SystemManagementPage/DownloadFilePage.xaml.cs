@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StudentManagement.MainPageDesign
+namespace StudentManagement.MainPageDesign.SystemManagementPage
 {
     /// <summary>
-    /// UserControl1.xaml 的交互逻辑
+    /// DownloadFilePage.xaml 的交互逻辑
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class DownloadFilePage : UserControl
     {
-        public UserControl1()
+        public DownloadFilePage()
         {
             InitializeComponent();
         }

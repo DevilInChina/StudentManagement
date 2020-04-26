@@ -23,19 +23,24 @@ namespace StudentManagement
     public partial class MainWindow : Window
     {
         public ListView CurListView;
-
+        public Color MainThemeColor;
         public MainWindow()
         {
             InitializeComponent();
             CurListView = null;
             List<SubItem> []SubMenu = new List<SubItem>[8];
             int i = 0;
+            MainThemeColor = new Color();
+            MainThemeColor.R = 127;
+            MainThemeColor.G = 127;
+            MainThemeColor.B = 127;
+            MainThemeColor.A = 127;
             SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("系统管理",new SystemManagement()));
+            SubMenu[i].Add(new SubItem("系统管理",new SystemManagement(this)));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("系统管理", SubMenu[i], PackIconKind.Monitor), this));
             ++i;
             SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("学籍管理",new UserControl1()));
+            SubMenu[i].Add(new SubItem("学籍管理"));
             SubMenu[i].Add(new SubItem("学生异动"));
             SubMenu[i].Add(new SubItem("毕业设计"));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("个人管理", SubMenu[i], PackIconKind.Person), this));

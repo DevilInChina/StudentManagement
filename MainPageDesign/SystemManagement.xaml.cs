@@ -21,10 +21,13 @@ namespace StudentManagement.MainPageDesign
     public partial class SystemManagement : UserControl
     {
 
-        UserControl CurrentPage;
+        private UserControl CurrentPage;
+        private UserControl[]BufferStore;
         public SystemManagement(MainWindow prev)
         {
             InitializeComponent();
+            BufferStore = new UserControl[1];///
+
             MenuItem s = new MenuItem();
             s.Click+= new RoutedEventHandler(MenuClick);
             s.Header = "（学生）常用附件下载";

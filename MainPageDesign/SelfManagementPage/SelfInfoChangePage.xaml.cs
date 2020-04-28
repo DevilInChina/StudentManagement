@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using StudentManagement.MainPageDesign;
-namespace StudentManagement.MainPageDesign.SystemManagementPage
+namespace StudentManagement.MainPageDesign.SelfManagementPage
 {
     /// <summary>
-    /// DownloadFilePage.xaml 的交互逻辑
+    /// SelfInfoChangePage.xaml 的交互逻辑
     /// </summary>
-    public partial class DownloadFilePage : UserControl,ThirdPage
+    public partial class SelfInfoChangePage : UserControl,ThirdPage
     {
-        public DownloadFilePage()
+        public SelfInfoChangePage()
         {
             InitializeComponent();
-            ///temp
         }
         public void ReClick()
         {

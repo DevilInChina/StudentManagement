@@ -18,29 +18,154 @@ namespace StudentManagement.MainPageDesign
     /// <summary>
     /// SelfManagement.xaml 的交互逻辑
     /// </summary>
-    public partial class SelfManagement : UserControl
+
+    public partial class SelfManagement : UserControl,SecondPage
     {
-        UserControl CurrentPage;
+        private UserControl[] BufferStore;
+        private int curIndex = 0;
+        public void init()
+        {
+
+        }
         public SelfManagement(MainWindow prev)
         {
             InitializeComponent();
-            MenuItem s = new MenuItem();
-            s.Click += new RoutedEventHandler(MenuClick);
-            s.Header = "学籍管理";
+            int size = 8;
             Menu1.Background = new SolidColorBrush(prev.MainThemeColor);
-            Menu1.Items.Add(s);
-            CurrentPage = null;
-        }
-        private void MenuClick(object sender, EventArgs e)
-        {
-            //MessageBox.Show("跳转页面");
-            if (CurrentPage == null)
+            BufferStore = new UserControl[size];
+            for (int i = 0; i < size; ++i)
             {
-                //destoryPagee
+                BufferStore[i] = null;
             }
-            CurrentPage = new SchoolOriginPage();
-            SystemSubPanel.Children.Clear();
-            SystemSubPanel.Children.Add(CurrentPage);
+            curIndex = -1;
+        }
+
+        private void OriginPageJump(object sender, RoutedEventArgs e)
+        {
+            int Id = 0;
+            if (BufferStore[Id] == null)
+            {
+                BufferStore[Id] = new SchoolOriginPage();
+
+            }
+            if (curIndex != Id)
+            {
+                curIndex = Id;
+                SubPanel.Children.Clear();
+                SubPanel.Children.Add(BufferStore[Id]);
+            }
+        }
+
+        private void ChangeInfoJump(object sender, RoutedEventArgs e)
+        {
+            int Id = 1;
+            if (BufferStore[Id] == null)
+            {
+                BufferStore[Id] = new SelfInfoChangePage();
+
+            }
+            if (curIndex != Id)
+            {
+                curIndex = Id;
+                SubPanel.Children.Clear();
+                SubPanel.Children.Add(BufferStore[Id]);
+            }
+        }
+
+        private void ChangeOriginJump(object sender, RoutedEventArgs e)
+        {
+            int Id = 2;
+            if (BufferStore[Id] == null)
+            {
+                BufferStore[Id] = new OriginChangePage();
+
+            }
+            if (curIndex != Id)
+            {
+                curIndex = Id;
+                SubPanel.Children.Clear();
+                SubPanel.Children.Add(BufferStore[Id]);
+            }
+        }
+
+        private void AwardInfoJump(object sender, RoutedEventArgs e)
+        {
+            int Id = 3;
+            if (BufferStore[Id] == null)
+            {
+                BufferStore[Id] = new AwardInfoPage();
+
+            }
+            if (curIndex != Id)
+            {
+                curIndex = Id;
+                SubPanel.Children.Clear();
+                SubPanel.Children.Add(BufferStore[Id]);
+            }
+        }
+
+        private void ERegJump(object sender, RoutedEventArgs e)
+        {
+            int Id = 4;
+            if (BufferStore[Id] == null)
+            {
+                BufferStore[Id] = new ERegisterPage();
+
+            }
+            if (curIndex != Id)
+            {
+                curIndex = Id;
+                SubPanel.Children.Clear();
+                SubPanel.Children.Add(BufferStore[Id]);
+            }
+        }
+
+        private void GuardInfoJump(object sender, RoutedEventArgs e)
+        {
+            int Id = 5;
+            if (BufferStore[Id] == null)
+            {
+                BufferStore[Id] = new GuarderInfoPage();
+
+            }
+            if (curIndex != Id)
+            {
+                curIndex = Id;
+                SubPanel.Children.Clear();
+                SubPanel.Children.Add(BufferStore[Id]);
+            }
+        }
+
+        private void MinorJump(object sender, RoutedEventArgs e)
+        {
+            int Id = 6;
+            if (BufferStore[Id] == null)
+            {
+                BufferStore[Id] = new MinorRegisterPage();
+
+            }
+            if (curIndex != Id)
+            {
+                curIndex = Id;
+                SubPanel.Children.Clear();
+                SubPanel.Children.Add(BufferStore[Id]);
+            }
+        }
+
+        private void IDMaintainJump(object sender, RoutedEventArgs e)
+        {
+            int Id = 7;
+            if (BufferStore[Id] == null)
+            {
+                BufferStore[Id] = new MinorRegisterPage();
+
+            }
+            if (curIndex != Id)
+            {
+                curIndex = Id;
+                SubPanel.Children.Clear();
+                SubPanel.Children.Add(BufferStore[Id]);
+            }
         }
     }
 }

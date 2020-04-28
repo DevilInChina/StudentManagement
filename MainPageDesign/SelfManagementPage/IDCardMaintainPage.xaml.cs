@@ -12,22 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using StudentManagement.MainPageDesign;
-namespace StudentManagement.MainPageDesign.SystemManagementPage
+
+namespace StudentManagement.MainPageDesign.SelfManagementPage
 {
     /// <summary>
-    /// DownloadFilePage.xaml 的交互逻辑
+    /// IDCardMaintainPage.xaml 的交互逻辑
     /// </summary>
-    public partial class DownloadFilePage : UserControl,ThirdPage
+    public partial class IDCardMaintainPage : UserControl
     {
-        public DownloadFilePage()
+        public IDCardMaintainPage()
         {
             InitializeComponent();
-            ///temp
-        }
-        public void ReClick()
-        {
-
         }
     }
 }

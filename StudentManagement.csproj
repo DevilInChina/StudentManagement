@@ -115,11 +115,51 @@
     <Compile Include="DropDownMenu\UserControlMenuItem.xaml.cs">
       <DependentUpon>UserControlMenuItem.xaml</DependentUpon>
     </Compile>
+    <Page Include="MainPageDesign\CourseChoosen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPageDesign\CourseChoosenPage\CurrentYearPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPageDesign\CourseChoosenPage\PrevYearPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPageDesign\SelfManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MainPageDesign\SelfManagementPage\AwardInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPageDesign\SelfManagementPage\ERegisterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPageDesign\SelfManagementPage\GuarderInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPageDesign\SelfManagementPage\IDCardMaintainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPageDesign\SelfManagementPage\MinorRegisterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPageDesign\SelfManagementPage\OriginChangePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPageDesign\SelfManagementPage\SchoolOriginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPageDesign\SelfManagementPage\SelfInfoChangePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,11 +180,42 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DropDownMenu\DropDownMenu.cs" />
+    <Compile Include="MainPageDesign\CourseChoosen.xaml.cs">
+      <DependentUpon>CourseChoosen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPageDesign\CourseChoosenPage\CurrentYearPage.xaml.cs">
+      <DependentUpon>CurrentYearPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPageDesign\CourseChoosenPage\PrevYearPage.xaml.cs">
+      <DependentUpon>PrevYearPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPageDesign\PageInterface.cs" />
     <Compile Include="MainPageDesign\SelfManagement.xaml.cs">
       <DependentUpon>SelfManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainPageDesign\SelfManagementPage\AwardInfoPage.xaml.cs">
+      <DependentUpon>AwardInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPageDesign\SelfManagementPage\ERegisterPage.xaml.cs">
+      <DependentUpon>ERegisterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPageDesign\SelfManagementPage\GuarderInfoPage.xaml.cs">
+      <DependentUpon>GuarderInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPageDesign\SelfManagementPage\IDCardMaintainPage.xaml.cs">
+      <DependentUpon>IDCardMaintainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPageDesign\SelfManagementPage\MinorRegisterPage.xaml.cs">
+      <DependentUpon>MinorRegisterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPageDesign\SelfManagementPage\OriginChangePage.xaml.cs">
+      <DependentUpon>OriginChangePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPageDesign\SelfManagementPage\SchoolOriginPage.xaml.cs">
       <DependentUpon>SchoolOriginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPageDesign\SelfManagementPage\SelfInfoChangePage.xaml.cs">
+      <DependentUpon>SelfInfoChangePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPageDesign\SystemManagement.xaml.cs">
       <DependentUpon>SystemManagement.xaml</DependentUpon>
@@ -188,7 +259,13 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="MainPageDesign\EducateEvaluationPage\" />
+    <Folder Include="MainPageDesign\EducationResource\" />
+    <Folder Include="MainPageDesign\ExamManagementPage\" />
+    <Folder Include="MainPageDesign\PostponeExamination\" />
+    <Folder Include="MainPageDesign\SyntheticalQuery\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.3.1.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.3.1.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

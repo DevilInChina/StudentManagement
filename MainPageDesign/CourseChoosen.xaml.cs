@@ -12,39 +12,51 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using StudentManagement.MainPageDesign.SystemManagementPage;
-
+using StudentManagement.MainPageDesign.CourseChoosenPage;
 namespace StudentManagement.MainPageDesign
 {
     /// <summary>
-    /// SystemManagement.xaml 的交互逻辑
+    /// CourseChoosen.xaml 的交互逻辑
     /// </summary>
-    public partial class SystemManagement : UserControl
+    public partial class CourseChoosen : UserControl
     {
-
-        private UserControl[]BufferStore;
+        private UserControl[] BufferStore;
         private int curIndex = 0;
-        public SystemManagement(MainWindow prev)
+        public CourseChoosen(MainWindow prev)
         {
             InitializeComponent();
-            int size = 1;
+            int size = 2;
             Menu1.Background = new SolidColorBrush(prev.MainThemeColor);
             BufferStore = new UserControl[size];
-            for(int i = 0; i < size; ++i)
+            for (int i = 0; i < size; ++i)
             {
                 BufferStore[i] = null;
             }
             curIndex = -1;
         }
-        
 
-        private void SysJump(object sender, RoutedEventArgs e)
+        private void CurJump(object sender, RoutedEventArgs e)
         {
             int Id = 0;
             if (BufferStore[Id] == null)
             {
-                BufferStore[Id] = new DownloadFilePage();
-               
+                BufferStore[Id] = new CurrentYearPage();
+
+            }
+            if (curIndex != Id)
+            {
+                curIndex = Id;
+                SubPanel.Children.Clear();
+                SubPanel.Children.Add(BufferStore[Id]);
+            }
+        }
+
+        private void PrevJump(object sender, RoutedEventArgs e)
+        {
+            int Id = 1;
+            if (BufferStore[Id] == null)
+            {
+                BufferStore[Id] = new PrevYearPage();
             }
             if (curIndex != Id)
             {

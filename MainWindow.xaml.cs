@@ -46,7 +46,7 @@ namespace StudentManagement
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("个人管理", SubMenu[i], PackIconKind.Person), this));
             ++i;
             SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("本学期课表"));
+            SubMenu[i].Add(new SubItem("本学期课表",new CourseChoosen(this)));
             SubMenu[i].Add(new SubItem("选课管理"));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("选课管理", SubMenu[i], PackIconKind.Cart), this));
             ++i;

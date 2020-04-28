@@ -12,22 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using StudentManagement.MainPageDesign;
-namespace StudentManagement.MainPageDesign.SystemManagementPage
+
+namespace StudentManagement.MainPageDesign.SelfManagementPage
 {
     /// <summary>
-    /// DownloadFilePage.xaml 的交互逻辑
+    /// MinorRegisterPage.xaml 的交互逻辑
     /// </summary>
-    public partial class DownloadFilePage : UserControl,ThirdPage
+    public partial class MinorRegisterPage : UserControl
     {
-        public DownloadFilePage()
+        public MinorRegisterPage()
         {
             InitializeComponent();
-            ///temp
-        }
-        public void ReClick()
-        {
-
         }
     }
 }

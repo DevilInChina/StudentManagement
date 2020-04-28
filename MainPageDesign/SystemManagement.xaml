@@ -12,10 +12,10 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Menu x:Name="Menu1" Grid.ColumnSpan="4"  Background="#FF144BC3" VerticalAlignment="Stretch">
-
+            <MenuItem Header="（学生）常用附件下载" Click="SysJump"/>
         </Menu>
         <StackPanel Name="SubPanel" Grid.ColumnSpan="4" Margin="10,10,10,10" Grid.Row="1" />
-
+        
     </Grid>
 
 </UserControl>

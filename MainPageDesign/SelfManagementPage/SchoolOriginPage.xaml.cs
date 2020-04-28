@@ -13,13 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
+using StudentManagement.MainPageDesign;
 using System.Data;
 namespace StudentManagement.MainPageDesign.SelfManagementPage
 {
     /// <summary>
     /// SchoolOriginPage.xaml 的交互逻辑
     /// </summary>
-    public partial class SchoolOriginPage : UserControl
+    public partial class SchoolOriginPage : UserControl,ThirdPage
     {
         public SchoolOriginPage()
         {
@@ -62,6 +63,10 @@ namespace StudentManagement.MainPageDesign.SelfManagementPage
                 MessageBox.Show(e.Message);
             }
             return (String)name.Value;
+        }
+        public void ReClick()
+        {
+
         }
     }
 

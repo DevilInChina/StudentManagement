@@ -73,6 +73,7 @@ namespace StudentManagement
             SubMenu[i] = new List<SubItem>();
             SubMenu[i].Add(new SubItem("缓考考试"));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("缓考考试", SubMenu[i], PackIconKind.Paper), this));
+            /////
         }
         
         internal void SwitchScreen(object sender)

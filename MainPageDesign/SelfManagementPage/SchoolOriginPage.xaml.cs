@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
+using System.Data;
 namespace StudentManagement.MainPageDesign.SelfManagementPage
 {
     /// <summary>
@@ -24,27 +25,44 @@ namespace StudentManagement.MainPageDesign.SelfManagementPage
         {
             InitializeComponent();
 
-            String connetStr = "server=127.0.0.1;port=3306;user=root;password=root; database=StudentManaged;";
-            MySqlConnection conn = new MySqlConnection(connetStr);
+            button.Content = getRes();
+            
+        }
+        String getRes()
+        {
+            String connectionString = "server=127.0.0.1;port=3306;user=root;password=root; database=studentmanaged;";
+            
+            MySqlConnection mysqlcon;
+            MySqlDataAdapter mysqldata = new MySqlDataAdapter();
+            DataSet dataset = new DataSet();
+            mysqlcon = new MySqlConnection(connectionString);
+            mysqlcon.Open();
+            mysqldata.SelectCommand = new MySqlCommand("GetStudentInfoFromID",mysqlcon);
+            mysqldata.SelectCommand.Connection = mysqlcon;
+            
+            mysqldata.SelectCommand.CommandText = "GetStudentInfoFromID";
+            mysqldata.SelectCommand.CommandType = CommandType.StoredProcedure;
+            MySqlParameter id_para = new MySqlParameter("?idn", MySqlDbType.Int32, 1);//mysql的存储过程参数是以?打头的！！！！
+            id_para.Value = 1;
+            mysqldata.SelectCommand.Parameters.Add(id_para);
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            MySqlParameter name = new MySqlParameter("?qName", MySqlDbType.VarChar, 12);//mysql的存储过程参数是以?打头的！！！！
+            name.Value = "Null";
+            
+            mysqldata.SelectCommand.Parameters.Add(name);
+            id_para.Direction = ParameterDirection.Input;
+            name.Direction = ParameterDirection.Output;
             try
             {
-                conn.Open();//打开通道，建立连接，可能出现异常,使用try catch语句
-                MessageBox.Show("リンク完了");
-                //在这里使用代码对数据库进行增删查改
+                //mysqldata.Fill(dataset);
+                mysqldata.SelectCommand.ExecuteNonQuery();
             }
-            catch (MySqlException ex)
+            catch (MySqlException e)
             {
-                MessageBox.Show("リンクファイル");
+                MessageBox.Show(e.Message);
             }
-            MySqlParameter[] collections =
-            {
-                new MySqlParameter("@idn",MySqlDbType.Int32,1),
-                new MySqlParameter("@sname",MySqlDbType.VarChar,12)
-            };
-            collections[0].Value = 1;
-               
+            return (String)name.Value;
         }
-        
     }
 
 }

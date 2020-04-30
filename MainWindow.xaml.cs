@@ -24,29 +24,27 @@ namespace StudentManagement
     {
         public ListView CurListView;
         public Color MainThemeColor;
-        public MainWindow()
+        public int type;//0 学生 1 教师 2 管理
+        public void LoadStudent()
         {
-            InitializeComponent();
-            CurListView = null;
-            List<SubItem> []SubMenu = new List<SubItem>[8];
+            List<SubItem>[] SubMenu = new List<SubItem>[8];
             int i = 0;
-            MainThemeColor = new Color();
-            MainThemeColor.R = 0;
-            MainThemeColor.G = 127;
-            MainThemeColor.B = 255;
-            MainThemeColor.A = 127;
+
+            CurListView = null;
+            
             SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("系统管理",new SystemManagement(this)));
+            SubMenu[i].Add(new SubItem("系统管理", new SystemManagement(this)));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("系统管理", SubMenu[i], PackIconKind.Monitor), this));
             ++i;
             SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("学籍管理",new SelfManagement(this)));
+            SubMenu[i].Add(new SubItem("学籍管理", new SelfManagement(this)));
             SubMenu[i].Add(new SubItem("学生异动"));
             SubMenu[i].Add(new SubItem("毕业设计"));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("个人管理", SubMenu[i], PackIconKind.Person), this));
             ++i;
             SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("本学期课表",new CourseChoosen(this)));
+            SubMenu[i].Add(new SubItem("本学期课表", new CourseChoosen(this)));
+
             SubMenu[i].Add(new SubItem("选课管理"));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("选课管理", SubMenu[i], PackIconKind.Cart), this));
             ++i;
@@ -73,9 +71,26 @@ namespace StudentManagement
             SubMenu[i] = new List<SubItem>();
             SubMenu[i].Add(new SubItem("缓考考试"));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("缓考考试", SubMenu[i], PackIconKind.Paper), this));
-            /////
         }
-        
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            MainThemeColor = new Color();
+            MainThemeColor.R = 0;
+            MainThemeColor.G = 127;
+            MainThemeColor.B = 255;
+            MainThemeColor.A = 127;
+            this.Hide();
+            Login lo = new Login(this);
+            lo.Show();
+            if (type < 0)
+            {
+                this.Close();
+            }
+
+        }
+
         internal void SwitchScreen(object sender)
         {
             var screen = ((UserControl)sender);
@@ -86,7 +101,7 @@ namespace StudentManagement
             }
             else
             {
-                
+
             }
         }
 

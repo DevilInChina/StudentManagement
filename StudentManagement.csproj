@@ -116,6 +116,10 @@
     <Compile Include="DropDownMenu\UserControlMenuItem.xaml.cs">
       <DependentUpon>UserControlMenuItem.xaml</DependentUpon>
     </Compile>
+    <Page Include="Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPageDesign\CourseChoosen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -181,6 +185,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DropDownMenu\DropDownMenu.cs" />
+    <Compile Include="Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPageDesign\CourseChoosen.xaml.cs">
       <DependentUpon>CourseChoosen.xaml</DependentUpon>
     </Compile>

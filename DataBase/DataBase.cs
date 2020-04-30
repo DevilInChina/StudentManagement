@@ -42,7 +42,7 @@ namespace StudentManagement.DataBase
 
             MySqlParameter[] mySqlParameter = new MySqlParameter[10];
             int indx = 0;
-            mySqlParameter[indx++] = new MySqlParameter("?iname", MySqlDbType.VarChar, 12);
+            mySqlParameter[indx++] = new MySqlParameter("?iname", MySqlDbType.VarChar, 24);
             mySqlParameter[indx++] = new MySqlParameter("?igender", MySqlDbType.VarChar, 1);
             mySqlParameter[indx++] = new MySqlParameter("?inational", MySqlDbType.VarChar, 12);
             mySqlParameter[indx++] = new MySqlParameter("?iacademic_id", MySqlDbType.Int64, 1);
@@ -54,6 +54,7 @@ namespace StudentManagement.DataBase
             mySqlParameter[indx++] = new MySqlParameter("?iguraduate", MySqlDbType.VarChar, 12);
 
             MySqlParameterCollection res = mysqldata.SelectCommand.Parameters;
+            
             for (int i = 0; i < indx; ++i)
             {
                 mySqlParameter[i].Direction = ParameterDirection.Output;
@@ -66,6 +67,7 @@ namespace StudentManagement.DataBase
                 mysqldata.SelectCommand.ExecuteNonQuery();
 
                 MessageBox.Show(mySqlParameter[0].Value.ToString());
+                MessageBox.Show(res[2].Value.ToString());
             }
             catch (MySqlException e)
             {

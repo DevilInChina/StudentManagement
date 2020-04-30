@@ -1,0 +1,21 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudentManagement"
+        xmlns:SelfManagementPage="clr-namespace:StudentManagement.MainPageDesign.SelfManagementPage" x:Class="StudentManagement.Login"
+        mc:Ignorable="d"
+        Title="Login" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="button" Content="Login" HorizontalAlignment="Left" Height="39" Margin="310,288,0,0" VerticalAlignment="Top" Width="155" Click="button_Click"/>
+
+        <SelfManagementPage:AwardInfoPage HorizontalAlignment="Left" Height="10" Margin="373,362,0,0" VerticalAlignment="Top" Width="1"/>
+        <RadioButton x:Name="radioButton" Content="学生" HorizontalAlignment="Left" Margin="360,229,0,0" VerticalAlignment="Top" Checked="radioButton_Checked"/>
+        <RadioButton x:Name="radioButton1" Content="先生" HorizontalAlignment="Left" Margin="360,247,0,0" VerticalAlignment="Top" Checked="radioButton1_Checked"/>
+        <RadioButton x:Name="radioButton2" Content="管理者" HorizontalAlignment="Left" Margin="360,265,0,0" VerticalAlignment="Top" Checked="radioButton2_Checked"/>
+        <TextBox x:Name="UserName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="322,153,0,0"/>
+        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="322,181,0,0" VerticalAlignment="Top" Width="120"/>
+
+    </Grid>
+</Window>

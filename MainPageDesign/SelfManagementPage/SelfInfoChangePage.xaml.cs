@@ -24,9 +24,15 @@ namespace StudentManagement.MainPageDesign.SelfManagementPage
         {
             InitializeComponent();
         }
+
         public void ReClick()
         {
+            throw new NotImplementedException();
+        }
 
+        public void ReClick(MainWindow curWindow)
+        {
+            throw new NotImplementedException();
         }
     }
 }

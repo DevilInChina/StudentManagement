@@ -19,7 +19,7 @@ namespace StudentManagement.MainPageDesign
     /// <summary>
     /// SystemManagement.xaml 的交互逻辑
     /// </summary>
-    public partial class SystemManagement : UserControl
+    public partial class SystemManagement : UserControl,SecondPage
     {
 
         private UserControl[]BufferStore;
@@ -27,16 +27,21 @@ namespace StudentManagement.MainPageDesign
         public SystemManagement(MainWindow prev)
         {
             InitializeComponent();
+            init(prev);
             int size = 1;
-            Menu1.Background = new SolidColorBrush(prev.MainThemeColor);
             BufferStore = new UserControl[size];
-            for(int i = 0; i < size; ++i)
+            for (int i = 0; i < size; ++i)
             {
                 BufferStore[i] = null;
             }
             curIndex = -1;
         }
-        
+
+        public void init(MainWindow curWindow)
+        {
+            Menu1.Background = new SolidColorBrush(curWindow.MainThemeColor);
+            
+        }
 
         private void SysJump(object sender, RoutedEventArgs e)
         {
@@ -46,6 +51,7 @@ namespace StudentManagement.MainPageDesign
                 BufferStore[Id] = new DownloadFilePage();
                
             }
+            
             if (curIndex != Id)
             {
                 curIndex = Id;

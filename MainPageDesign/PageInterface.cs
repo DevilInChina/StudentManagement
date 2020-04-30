@@ -17,10 +17,11 @@ namespace StudentManagement.MainPageDesign
 {
     interface SecondPage
     {
-        void init();
+        void init(MainWindow curWindow);
     }
     interface ThirdPage
     {
+        void ReClick(MainWindow curWindow);
         void ReClick();
     }
 }

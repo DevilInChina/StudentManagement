@@ -18,15 +18,15 @@ namespace StudentManagement.MainPageDesign
     /// <summary>
     /// CourseChoosen.xaml 的交互逻辑
     /// </summary>
-    public partial class CourseChoosen : UserControl
+    public partial class CourseChoosen : UserControl,SecondPage
     {
         private UserControl[] BufferStore;
         private int curIndex = 0;
         public CourseChoosen(MainWindow prev)
         {
             InitializeComponent();
+            init(prev);
             int size = 2;
-            Menu1.Background = new SolidColorBrush(prev.MainThemeColor);
             BufferStore = new UserControl[size];
             for (int i = 0; i < size; ++i)
             {
@@ -35,13 +35,17 @@ namespace StudentManagement.MainPageDesign
             curIndex = -1;
         }
 
+        public void init(MainWindow curWindow)
+        {
+            Menu1.Background = new SolidColorBrush(curWindow.MainThemeColor);
+        }
+
         private void CurJump(object sender, RoutedEventArgs e)
         {
             int Id = 0;
             if (BufferStore[Id] == null)
             {
                 BufferStore[Id] = new CurrentYearPage();
-
             }
             if (curIndex != Id)
             {

@@ -12,17 +12,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using StudentManagement.MainPageDesign;
 namespace StudentManagement.MainPageDesign.SelfManagementPage
 {
     /// <summary>
     /// GuarderInfoPage.xaml 的交互逻辑
     /// </summary>
-    public partial class GuarderInfoPage : UserControl
+    public partial class GuarderInfoPage : UserControl,ThirdPage
     {
         public GuarderInfoPage()
         {
             InitializeComponent();
+        }
+
+        public void ReClick()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReClick(MainWindow curWindow)
+        {
+            throw new NotImplementedException();
         }
     }
 }

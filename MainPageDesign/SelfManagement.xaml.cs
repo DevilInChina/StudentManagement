@@ -23,21 +23,23 @@ namespace StudentManagement.MainPageDesign
     {
         private UserControl[] BufferStore;
         private int curIndex = 0;
-        public void init()
-        {
-
-        }
+        
         public SelfManagement(MainWindow prev)
         {
             InitializeComponent();
             int size = 8;
-            Menu1.Background = new SolidColorBrush(prev.MainThemeColor);
+            init(prev);
             BufferStore = new UserControl[size];
             for (int i = 0; i < size; ++i)
             {
                 BufferStore[i] = null;
             }
             curIndex = -1;
+        }
+        
+        public void init(MainWindow curWindow)
+        {
+            Menu1.Background = new SolidColorBrush(curWindow.MainThemeColor);
         }
 
         private void OriginPageJump(object sender, RoutedEventArgs e)
@@ -167,5 +169,7 @@ namespace StudentManagement.MainPageDesign
                 SubPanel.Children.Add(BufferStore[Id]);
             }
         }
+
+       
     }
 }

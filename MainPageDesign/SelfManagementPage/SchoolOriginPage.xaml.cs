@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 using StudentManagement.MainPageDesign;
 using System.Data;
+using StudentManagement.DataBase;
 namespace StudentManagement.MainPageDesign.SelfManagementPage
 {
     /// <summary>
@@ -22,51 +23,25 @@ namespace StudentManagement.MainPageDesign.SelfManagementPage
     /// </summary>
     public partial class SchoolOriginPage : UserControl,ThirdPage
     {
+        MySqlParameterCollection info;
         public SchoolOriginPage()
         {
             InitializeComponent();
+            StaticDataBase db = new StaticDataBase();
+            db.SetConnector("s");
+            info = db.getInfoFromId(1);
+            
+            
+        }
 
-            button.Content = getRes();
-            
-        }
-        String getRes()
-        {
-            String connectionString = "server=127.0.0.1;port=3306;user=root;password=root; database=studentmanaged;";
-            
-            MySqlConnection mysqlcon;
-            MySqlDataAdapter mysqldata = new MySqlDataAdapter();
-            DataSet dataset = new DataSet();
-            mysqlcon = new MySqlConnection(connectionString);
-            mysqlcon.Open();
-            mysqldata.SelectCommand = new MySqlCommand("GetStudentInfoFromID",mysqlcon);
-            mysqldata.SelectCommand.Connection = mysqlcon;
-            
-            mysqldata.SelectCommand.CommandText = "GetStudentInfoFromID";
-            mysqldata.SelectCommand.CommandType = CommandType.StoredProcedure;
-            MySqlParameter id_para = new MySqlParameter("?idn", MySqlDbType.Int32, 1);//mysql的存储过程参数是以?打头的！！！！
-            id_para.Value = 1;
-            mysqldata.SelectCommand.Parameters.Add(id_para);
-            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            MySqlParameter name = new MySqlParameter("?qName", MySqlDbType.VarChar, 12);//mysql的存储过程参数是以?打头的！！！！
-            name.Value = "Null";
-            
-            mysqldata.SelectCommand.Parameters.Add(name);
-            id_para.Direction = ParameterDirection.Input;
-            name.Direction = ParameterDirection.Output;
-            try
-            {
-                //mysqldata.Fill(dataset);
-                mysqldata.SelectCommand.ExecuteNonQuery();
-            }
-            catch (MySqlException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            return (String)name.Value;
-        }
         public void ReClick()
         {
+            throw new NotImplementedException();
+        }
 
+        public void ReClick(MainWindow curWindow)
+        {
+            throw new NotImplementedException();
         }
     }
 

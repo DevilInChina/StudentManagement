@@ -12,17 +12,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using StudentManagement.MainPageDesign;
 namespace StudentManagement.MainPageDesign.SelfManagementPage
 {
     /// <summary>
     /// IDCardMaintainPage.xaml 的交互逻辑
     /// </summary>
-    public partial class IDCardMaintainPage : UserControl
+    public partial class IDCardMaintainPage : UserControl,ThirdPage
     {
         public IDCardMaintainPage()
         {
             InitializeComponent();
+        }
+
+        public void ReClick()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReClick(MainWindow curWindow)
+        {
+            throw new NotImplementedException();
         }
     }
 }

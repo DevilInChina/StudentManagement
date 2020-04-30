@@ -18,13 +18,23 @@ namespace StudentManagement.MainPageDesign.CourseChoosenPage
     /// <summary>
     /// PrevYearPage.xaml 的交互逻辑
     /// </summary>
-    public partial class PrevYearPage : UserControl
+    public partial class PrevYearPage : UserControl,ThirdPage
     {
         public PrevYearPage()
         {
             InitializeComponent();
 
             MessageBox.Show("Prev");
+        }
+
+        public void ReClick()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReClick(MainWindow curWindow)
+        {
+            throw new NotImplementedException();
         }
     }
 }

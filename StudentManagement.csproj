@@ -258,6 +258,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="DataGenerate\data.csv" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -281,6 +282,15 @@
     <Resource Include="Pictures\kon1cut.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DataGenerate\main.cpp" />
+    <Resource Include="DataGenerate\academic.txt" />
+    <Resource Include="DataGenerate\birthday.txt" />
+    <Resource Include="DataGenerate\birthplace.txt" />
+    <Resource Include="DataGenerate\firstname.txt" />
+    <Content Include="DataGenerate\generate.cpp" />
+    <Resource Include="DataGenerate\lastname.txt" />
+    <Resource Include="DataGenerate\national.txt" />
+    <Content Include="DataGenerate\seprate.cpp" />
     <Content Include="SQL\Build.sql" />
     <Content Include="SQL\funcs.sql" />
   </ItemGroup>

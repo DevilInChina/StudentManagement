@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using StudentManagement.DropDownMenu;
 using StudentManagement.MainPageDesign;
+using StudentManagement.ManagementDesign;
 using MaterialDesignThemes.Wpf;
 using StudentManagement.DataBase;
 namespace StudentManagement
@@ -25,7 +26,7 @@ namespace StudentManagement
     {
         public ListView CurListView;
         public Color MainThemeColor;
-        StaticDataBase dataBase;
+        public StaticDataBase dataBase;
         public int type;//0 学生 1 教师 2 管理
         public void LoadStudent()
         {
@@ -82,45 +83,9 @@ namespace StudentManagement
             CurListView = null;
 
             SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("学院管理", new SystemManagement(this)));
+            SubMenu[i].Add(new SubItem("学院管理", new AcadamyPageDesign(this)));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("系统管理", SubMenu[i], PackIconKind.Monitor), this));
 
-            ++i;
-            SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("学籍管理", new SelfManagement(this)));
-            SubMenu[i].Add(new SubItem("学生异动"));
-            SubMenu[i].Add(new SubItem("毕业设计"));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("个人管理", SubMenu[i], PackIconKind.Person), this));
-            ++i;
-            SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("本学期课表", new CourseChoosen(this)));
-
-            SubMenu[i].Add(new SubItem("选课管理"));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("选课管理", SubMenu[i], PackIconKind.Cart), this));
-            ++i;
-            SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("评估"));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("教学评估", SubMenu[i], PackIconKind.Pencil), this));
-            ++i;
-            SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("考务管理"));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("考务管理", SubMenu[i], PackIconKind.Calendar), this));
-            ++i;
-            SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("教学资源"));
-            SubMenu[i].Add(new SubItem("自习查询"));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("教学资源", SubMenu[i], PackIconKind.Building), this));
-            ++i;
-            SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("培养方案完成情况"));
-            SubMenu[i].Add(new SubItem("指导性完成计划"));
-            SubMenu[i].Add(new SubItem("课程"));
-            SubMenu[i].Add(new SubItem("教材"));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("综合查询", SubMenu[i], PackIconKind.Magnify), this));
-            ++i;
-            SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("缓考考试"));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("缓考考试", SubMenu[i], PackIconKind.Paper), this));
         }
 
         public MainWindow(StaticDataBase mysqlConnector)

@@ -13,6 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using StudentManagement;
+using System.Data;
+using MySql;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 namespace StudentManagement.ManagementDesign
 {
     /// <summary>
@@ -20,9 +24,15 @@ namespace StudentManagement.ManagementDesign
     /// </summary>
     public partial class AcadamyPageDesign : UserControl
     {
-        public AcadamyPageDesign()
+
+        MainWindow root;
+        public AcadamyPageDesign(MainWindow prev)
         {
             InitializeComponent();
+            root = prev;
+            Menu1.Background = new SolidColorBrush(prev.MainThemeColor);
+            DataTable data = root.dataBase.getAcadamy();
+            MessageBox.Show(data.Rows[0]["Academy_name"].ToString());
         }
     }
 }

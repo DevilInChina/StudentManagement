@@ -69,6 +69,7 @@ namespace StudentManagement
                     case 1:
                         break;
                     case 2:
+                        Father.LoadManaged();
                         break;
                 }
                 Father.type = CurrentType;

@@ -43,15 +43,15 @@ namespace StudentManagement.DataBase
             MySqlParameter[] mySqlParameter = new MySqlParameter[10];
             int indx = 0;
             mySqlParameter[indx++] = new MySqlParameter("?iname", MySqlDbType.VarChar, 24);
-            mySqlParameter[indx++] = new MySqlParameter("?igender", MySqlDbType.VarChar, 1);
-            mySqlParameter[indx++] = new MySqlParameter("?inational", MySqlDbType.VarChar, 12);
+            mySqlParameter[indx++] = new MySqlParameter("?igender", MySqlDbType.VarChar, 8);
+            mySqlParameter[indx++] = new MySqlParameter("?inational", MySqlDbType.VarChar, 8);
             mySqlParameter[indx++] = new MySqlParameter("?iacademic_id", MySqlDbType.Int64, 1);
             mySqlParameter[indx++] = new MySqlParameter("?imajor_id", MySqlDbType.Int64, 1);
             mySqlParameter[indx++] = new MySqlParameter("?iminor_id", MySqlDbType.Int64, 1);
             mySqlParameter[indx++] = new MySqlParameter("?iclass_id", MySqlDbType.Int64, 1);
-            mySqlParameter[indx++] = new MySqlParameter("?iPSD", MySqlDbType.VarChar, 12);
+            mySqlParameter[indx++] = new MySqlParameter("?iPSD", MySqlDbType.VarChar, 24);
             mySqlParameter[indx++] = new MySqlParameter("?ibirthday", MySqlDbType.Date, 1);
-            mySqlParameter[indx++] = new MySqlParameter("?iguraduate", MySqlDbType.VarChar, 12);
+            mySqlParameter[indx++] = new MySqlParameter("?igraduate", MySqlDbType.VarChar, 8);
 
             MySqlParameterCollection res = mysqldata.SelectCommand.Parameters;
             

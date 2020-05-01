@@ -84,11 +84,7 @@ namespace StudentManagement
             this.Hide();
             Login lo = new Login(this);
             lo.Show();
-            if (type < 0)
-            {
-                this.Close();
-            }
-
+            
         }
 
         internal void SwitchScreen(object sender)

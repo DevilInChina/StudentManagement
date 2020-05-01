@@ -1,14 +1,14 @@
-﻿<Window
+﻿<Window x:Class="StudentManagement.Login"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudentManagement"
-        xmlns:SelfManagementPage="clr-namespace:StudentManagement.MainPageDesign.SelfManagementPage" x:Class="StudentManagement.Login"
         mc:Ignorable="d"
         Title="Login" Height="405" Width="720"
         Closing="Window_Closing"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        >
     <Grid>
         <Grid RenderTransformOrigin="0.5,0.5" Margin="368,52,84.6,57.2">
             <Button x:Name="button" Content="Login" HorizontalAlignment="Left" Height="39" Margin="62,189,0,0" VerticalAlignment="Top" Width="155" Click="button_Click" />

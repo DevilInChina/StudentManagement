@@ -21,17 +21,16 @@ namespace StudentManagement
     {
         MainWindow Father;
         int CurrentType;
-        
-        public Login(MainWindow mainWindow)
+        int UserIDSize;
+        public Login()
         {
             InitializeComponent();
             ImageBrush b3 = new ImageBrush();
             b3.ImageSource = new BitmapImage(new Uri("../../Pictures/kon1cut.jpg", UriKind.RelativeOrAbsolute));
             this.Background = b3;
             CurrentType = -1;
-            Father = mainWindow;
-            Father.type = CurrentType;
             
+            UserIDSize = 0;
             //this.Background = new SolidColorBrush(mainWindow.MainThemeColor);
         }
 
@@ -48,7 +47,14 @@ namespace StudentManagement
                     MessageBox.Show("请输如密码");
                     return;
                 }
+
+                /*
+                 * PassWordCheck
+                 * 
+                 */
                 this.Hide();
+
+                Father = new MainWindow();
                 switch (CurrentType)
                 {
                     case 0:
@@ -59,6 +65,7 @@ namespace StudentManagement
                     case 2:
                         break;
                 }
+                Father.type = CurrentType;
                 Father.Show();
                 
                 this.Close();
@@ -91,7 +98,16 @@ namespace StudentManagement
             int sb = e.Key - Key.NumPad0;
             if ((sa >= 0 && sa <= 9) || (sb >= 0 && sb <= 9))
             {
-                e.Handled = false;
+                if (UserIDSize < 15)
+                {
+                    e.Handled = false;
+                    ++UserIDSize;
+                }
+                else
+                {
+                    e.Handled = true;
+                }
+
             }
             else
             {
@@ -101,13 +117,17 @@ namespace StudentManagement
                 }
                 else
                 {
+                    if (e.Key == Key.Back && UserIDSize>0)
+                    {
+                        --UserIDSize;
+                    }
                     e.Handled = false;
                 }
             }
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Father.Close();
+            
         }
 
         

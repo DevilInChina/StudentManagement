@@ -81,10 +81,6 @@ namespace StudentManagement
             MainThemeColor.G = 127;
             MainThemeColor.B = 255;
             MainThemeColor.A = 127;
-            this.Hide();
-            Login lo = new Login(this);
-            lo.Show();
-            
         }
 
         internal void SwitchScreen(object sender)

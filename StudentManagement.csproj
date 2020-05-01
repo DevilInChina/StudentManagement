@@ -273,13 +273,16 @@
     <Folder Include="MainPageDesign\ExamManagementPage\" />
     <Folder Include="MainPageDesign\PostponeExamination\" />
     <Folder Include="MainPageDesign\SyntheticalQuery\" />
-    <Folder Include="SQL\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pictures\kon1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pictures\kon1cut.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SQL\Build.sql" />
+    <Content Include="SQL\funcs.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.3.1.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.3.1.0\build\MaterialDesignThemes.targets')" />

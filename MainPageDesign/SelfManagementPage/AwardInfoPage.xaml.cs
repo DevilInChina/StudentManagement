@@ -20,9 +20,11 @@ namespace StudentManagement.MainPageDesign.SelfManagementPage
     /// </summary>
     public partial class AwardInfoPage : UserControl,ThirdPage
     {
-        public AwardInfoPage()
+        MainWindow root;
+        public AwardInfoPage(MainWindow prev)
         {
             InitializeComponent();
+            root = prev;
         }
 
         public void ReClick()

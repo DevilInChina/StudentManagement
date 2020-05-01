@@ -23,7 +23,7 @@ namespace StudentManagement.MainPageDesign
     {
         private UserControl[] BufferStore;
         private int curIndex = 0;
-        
+        MainWindow root;
         public SelfManagement(MainWindow prev)
         {
             InitializeComponent();
@@ -40,6 +40,7 @@ namespace StudentManagement.MainPageDesign
         public void init(MainWindow curWindow)
         {
             Menu1.Background = new SolidColorBrush(curWindow.MainThemeColor);
+            root = curWindow;
         }
 
         private void OriginPageJump(object sender, RoutedEventArgs e)
@@ -47,7 +48,7 @@ namespace StudentManagement.MainPageDesign
             int Id = 0;
             if (BufferStore[Id] == null)
             {
-                BufferStore[Id] = new SchoolOriginPage();
+                BufferStore[Id] = new SchoolOriginPage(root);
 
             }
             if (curIndex != Id)
@@ -95,7 +96,7 @@ namespace StudentManagement.MainPageDesign
             int Id = 3;
             if (BufferStore[Id] == null)
             {
-                BufferStore[Id] = new AwardInfoPage();
+                BufferStore[Id] = new AwardInfoPage(root) ;
 
             }
             if (curIndex != Id)

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Drawing;
+using StudentManagement.DataBase;
 namespace StudentManagement
 {
     /// <summary>
@@ -22,6 +23,8 @@ namespace StudentManagement
         MainWindow Father;
         int CurrentType;
         int UserIDSize;
+        String sqlConnector = "server=127.0.0.1;port=3306;user=root;password=root; database=studentmanaged;";
+        StaticDataBase staticDataBase;
         public Login()
         {
             InitializeComponent();
@@ -31,6 +34,8 @@ namespace StudentManagement
             CurrentType = -1;
             
             UserIDSize = 0;
+            staticDataBase = new StaticDataBase();
+            staticDataBase.SetConnector(sqlConnector);
             //this.Background = new SolidColorBrush(mainWindow.MainThemeColor);
         }
 
@@ -52,9 +57,10 @@ namespace StudentManagement
                  * PassWordCheck
                  * 
                  */
-                this.Hide();
 
-                Father = new MainWindow();
+                this.Hide();
+                
+                Father = new MainWindow(staticDataBase);
                 switch (CurrentType)
                 {
                     case 0:

@@ -197,7 +197,6 @@
     <Compile Include="MainPageDesign\CourseChoosenPage\PrevYearPage.xaml.cs">
       <DependentUpon>PrevYearPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPageDesign\PageInterface.cs" />
     <Compile Include="MainPageDesign\SelfManagement.xaml.cs">
       <DependentUpon>SelfManagement.xaml</DependentUpon>
     </Compile>
@@ -239,8 +238,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ManagementDesign\AcadamyPageDesign.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ManagementDesign\AcadamyPageDesign.xaml.cs">
+      <DependentUpon>AcadamyPageDesign.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

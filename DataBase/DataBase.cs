@@ -10,7 +10,7 @@ using MySql.Data.MySqlClient;
 using System.Windows;
 namespace StudentManagement.DataBase
 {
-    class StaticDataBase
+    public class StaticDataBase
     {
         private string dataBaseConnectorString = null;
         private MySqlConnection mysqlcon = null;
@@ -30,7 +30,7 @@ namespace StudentManagement.DataBase
 
             mysqlcon.Open();
             MySqlDataAdapter mysqldata = new MySqlDataAdapter();
-            DataSet dataset = new DataSet();
+            
             mysqldata.SelectCommand = new MySqlCommand("GetStudentInfoFromID", mysqlcon);
             mysqldata.SelectCommand.CommandType = CommandType.StoredProcedure;
             MySqlParameter id_para = new MySqlParameter("?idn", MySqlDbType.Int64, 1);//mysql的存储过程参数是以?打头的！！！！
@@ -38,7 +38,6 @@ namespace StudentManagement.DataBase
             mysqldata.SelectCommand.Parameters.Add(id_para);
             id_para.Direction = ParameterDirection.Input;
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 
             MySqlParameter[] mySqlParameter = new MySqlParameter[10];
             int indx = 0;
@@ -73,7 +72,26 @@ namespace StudentManagement.DataBase
             {
                 MessageBox.Show(e.Message);
             }
+            mysqlcon.Close();
             return res;
+        }
+
+        public DataTable getAcadamy()
+        {
+            DataTable s = new DataTable();
+            mysqlcon.Open();
+            MySqlCommand mySqlCommand = new MySqlCommand("select * from academy_information;", mysqlcon);
+            mySqlCommand.CommandType = CommandType.Text;
+            MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(mySqlCommand);
+            try
+            {
+                mySqlDataAdapter.Fill(s);
+            }catch(MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            mysqlcon.Close();
+            return s;
         }
     }
 }

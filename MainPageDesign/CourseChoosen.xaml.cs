@@ -22,6 +22,7 @@ namespace StudentManagement.MainPageDesign
     {
         private UserControl[] BufferStore;
         private int curIndex = 0;
+        MainWindow root;
         public CourseChoosen(MainWindow prev)
         {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace StudentManagement.MainPageDesign
         public void init(MainWindow curWindow)
         {
             Menu1.Background = new SolidColorBrush(curWindow.MainThemeColor);
+            root = curWindow;
         }
 
         private void CurJump(object sender, RoutedEventArgs e)

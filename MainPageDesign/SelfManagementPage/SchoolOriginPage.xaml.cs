@@ -24,7 +24,7 @@ namespace StudentManagement.MainPageDesign.SelfManagementPage
     public partial class SchoolOriginPage : UserControl,ThirdPage
     {
         MySqlParameterCollection info;
-        public SchoolOriginPage()
+        public SchoolOriginPage(MainWindow root)
         {
             InitializeComponent();
             StaticDataBase db = new StaticDataBase();

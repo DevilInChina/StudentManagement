@@ -283,6 +283,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataGenerate\main.cpp" />
+    <Content Include="SQL\addAca.sql" />
     <Resource Include="DataGenerate\academic.txt" />
     <Resource Include="DataGenerate\birthday.txt" />
     <Resource Include="DataGenerate\birthplace.txt" />

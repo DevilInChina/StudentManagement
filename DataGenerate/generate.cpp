@@ -81,7 +81,10 @@ int main(int argc ,char **argv){
 
         fin<<','<<G+2018;
         fin<<','<<getRand(birthplace);
-        fin<<','<<getRand(Aca)<<'\n';
-        
+        fin<<','<<getRand(Aca)<<',';
+        int s = rand() % 3;
+        if (s)
+            fin << "M\n";
+        else fin << "F\n";
     }
 }

@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
 using System.IO;
-using AutoMapper;
 namespace StudentManagement.ManagementDesign
 {
     /// <summary>
@@ -28,22 +27,53 @@ namespace StudentManagement.ManagementDesign
             public String national;
             public String From;
             public String birthday;
+            public String gender;
             public long classID;
             public long majID;
             public long stuID;
+            public long acaID;
+            public int grade;
+            public Student(String name,String national, String From,String birthday,String gender,int grade, long majID,long acaID)
+            {
+                this.name = name;
+                this.national = national;
+                this.From = From;
+                this.birthday = birthday;
+                this.majID = majID;
+                this.acaID = acaID;
+                this.grade = grade;
+                this.gender = gender;
+            }
             public int CompareTo(Student other)
             {
+                if (grade != other.grade)
+                {
+                    return (int)(grade - other.grade);
+                }
+                if (acaID != other.acaID)
+                {
+                    return (int)(acaID - other.acaID);
+                }
                 if (majID != other.majID)
                 {
-                    return (int)majID - (int)other.majID;
+                    return (int)(majID - other.majID);
                 }
-                return name.CompareTo(other.name);
+                int gend = gender.CompareTo(other.gender);
+                if (0!=gend)
+                {
+                    return name.CompareTo(other.name);
+                }
+                else
+                {
+                    return gend;
+                }
             }
         }
+        MainWindow root;
         public StudentImportDesign(MainWindow root)
         {
             InitializeComponent();
-            
+            this.root = root;
         }
 
         /// <summary>
@@ -71,11 +101,12 @@ namespace StudentManagement.ManagementDesign
 
                 while ((strline = mysr.ReadLine()) != null)
                 {
+
                     aryline = strline.Split(new char[] { ',' });
                     
                     if (aryline.Length != header.Length)
                     {
-                        
+                        //MessageBox.Show(aryline.Length.ToString() + " " + header.Length.ToString());
                         return false;
                     }
                     //给datatable加上列名
@@ -83,7 +114,7 @@ namespace StudentManagement.ManagementDesign
                     {
                         blnFlag = false;
                         intColCount = aryline.Length;
-                        int col = 0;
+                        
                         for (int i = 0; i < aryline.Length; i++)
                         {
                             mydc = new DataColumn(header[i]);
@@ -119,10 +150,50 @@ namespace StudentManagement.ManagementDesign
             }
             
             DataTable stuRawInfo = new DataTable();
-            String[] header = {"name","national","birthday","grade","place","major" };
+            
+            String[] header = {"name","national","birthday","grade","place","major","gender" };
             if(OpenCSVFile(ref stuRawInfo, csvFilePath, header))
             {
+                DataTable data = root.dataBase.getMajor();
+                DataColumn[] keys = new DataColumn[1];
+                keys[0] = data.Columns["major_name"];
+                data.PrimaryKey = keys;
+
+                List<Student> ls = new List<Student>();
                 
+                for(int i = 0; i < stuRawInfo.Rows.Count; ++i)
+                {
+                    try
+                    {
+                        DataRow dataRow = data.Rows.Find(((String)stuRawInfo.Rows[i]["major"]));
+                        ls.Add(new Student(((String)stuRawInfo.Rows[i]["name"]), ((String)stuRawInfo.Rows[i]["national"]),
+                            ((String)stuRawInfo.Rows[i]["place"]), ((String)stuRawInfo.Rows[i]["birthday"]),
+                            ((String)stuRawInfo.Rows[i]["gender"]),
+                            int.Parse(((String)stuRawInfo.Rows[i]["grade"]).ToString()),
+                            long.Parse(dataRow["major_id"].ToString()),
+                            long.Parse(dataRow["Academy_id"].ToString())
+                            ));
+                    }catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                ls.Sort();
+                MessageBox.Show(ls[0].name+" "+ls[0].majID.ToString()+" "+ls[0].gender);
+                long curGrade = ls[0].grade;
+                int cnt = 0;
+                for(int i = 0; i < ls.Count; ++i)
+                {
+                    if (curGrade != ls[i].grade)
+                    {
+                        cnt = 0;
+                        curGrade = ls[i].grade;
+                    }
+                    ls[i].stuID = curGrade * 100 + 1;
+                    ls[i].stuID *= 10000;
+                    ls[i].stuID += ++cnt ;
+
+                }
             }
             else
             {

@@ -74,22 +74,31 @@ namespace StudentManagement.DataBase
             return res;
         }
 
-        public DataTable getAcadamy()
+        private DataTable getXXXX(String table)
         {
             DataTable s = new DataTable();
             mysqlcon.Open();
-            MySqlCommand mySqlCommand = new MySqlCommand("select * from academy_information;", mysqlcon);
+            MySqlCommand mySqlCommand = new MySqlCommand("select * from "+table+";", mysqlcon);
             mySqlCommand.CommandType = CommandType.Text;
             MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(mySqlCommand);
             try
             {
                 mySqlDataAdapter.Fill(s);
-            }catch(MySqlException ex)
+            }
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
             mysqlcon.Close();
             return s;
+        }
+        public DataTable getAcadamy()
+        {
+            return getXXXX("academy_information");
+        }
+        public DataTable getMajor()
+        {
+            return getXXXX("major_information");
         }
 
         private long getXXID(String Name,String Procedure,String _in,String _out,String failInfo)

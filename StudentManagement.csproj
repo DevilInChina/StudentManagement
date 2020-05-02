@@ -37,6 +37,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
@@ -253,6 +256,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ManagementDesign\StudentImportDesign.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ManagementDesign\AcadamyPageDesign.xaml.cs">
@@ -260,6 +267,9 @@
     </Compile>
     <Compile Include="ManagementDesign\SingleAcademyPage\SingleAcademyPage.xaml.cs">
       <DependentUpon>SingleAcademyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagementDesign\StudentImportDesign.xaml.cs">
+      <DependentUpon>StudentImportDesign.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

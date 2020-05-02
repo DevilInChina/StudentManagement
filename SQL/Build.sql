@@ -144,5 +144,11 @@ begin
     insert into major_information (Academy_id,major_name) values (iAcademy_id,iMajor_name);
 end
 $$
+DROP procedure if exists GetMajorID ;
+create procedure GetMajorID(in iMajor_name varchar(24),out imajor_id bigint(1))
+begin
+    select major_id into imajor_id from major_information where major_name = iMajor_name;
+end
+$$
 
 DELIMITER ;

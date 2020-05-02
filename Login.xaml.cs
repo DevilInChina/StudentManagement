@@ -28,6 +28,7 @@ namespace StudentManagement
         public Login()
         {
             InitializeComponent();
+
             ImageBrush b3 = new ImageBrush();
             b3.ImageSource = new BitmapImage(new Uri("../../Pictures/kon1cut.jpg", UriKind.RelativeOrAbsolute));
             this.Background = b3;

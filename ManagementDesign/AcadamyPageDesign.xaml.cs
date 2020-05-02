@@ -38,12 +38,10 @@ namespace StudentManagement.ManagementDesign
             Menu1.Background = new SolidColorBrush(prev.MainThemeColor);
             dp = DependencyProperty.Register("MenuItemValue", typeof(SingleAcademyPage.SingleAcademyPage), typeof(MenuItem));
             data = root.dataBase.getAcadamy();
-            MessageBox.Show(data.Rows.Count.ToString());
             for (Cnt = 0; Cnt < data.Rows.Count;)
             {
                 String temp = data.Rows[Cnt]["Academy_name"].ToString();
                 addMenuItem(temp);
-                MessageBox.Show(Cnt.ToString());
                 ((MenuItem)Menu1.Items[Cnt - 1]).
                     SetValue(dp, new SingleAcademyPage.SingleAcademyPage(
                         root, ((long)(data.Rows[Cnt-1]["Academy_id"])), temp));
@@ -52,9 +50,11 @@ namespace StudentManagement.ManagementDesign
         public void addMenuItem(String header)
         {
             MenuItem menuItem = new MenuItem();
+            
             menuItem.Click += MenuItem_Click;
             menuItem.Header = header;
             Menu1.Items.Add(menuItem);
+            
             ++Cnt;
         }
 
@@ -62,7 +62,9 @@ namespace StudentManagement.ManagementDesign
         {
             if (curPage == null)///初始化
             {
-                curPage = (SingleAcademyPage.SingleAcademyPage)((MenuItem)sender).GetValue(dp);
+                curPage = (SingleAcademyPage.SingleAcademyPage)((MenuItem)sender).GetValue(dp); 
+                SubPanel.Children.Clear();
+                SubPanel.Children.Add(curPage);
 
             }
             else if (curPage == (SingleAcademyPage.SingleAcademyPage)((MenuItem)sender).GetValue(dp))///不是初始化重新点击当前页面

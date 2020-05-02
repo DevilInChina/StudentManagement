@@ -91,19 +91,20 @@ namespace StudentManagement.DataBase
             mysqlcon.Close();
             return s;
         }
-        public long getAcadamyID(String AcaName)
+
+        private long getXXID(String Name,String Procedure,String _in,String _out,String failInfo)
         {
             mysqlcon.Open();
             MySqlDataAdapter mysqldata = new MySqlDataAdapter();
 
-            mysqldata.SelectCommand = new MySqlCommand("GetAcademyID", mysqlcon);
+            mysqldata.SelectCommand = new MySqlCommand(Procedure, mysqlcon);
             mysqldata.SelectCommand.CommandType = CommandType.StoredProcedure;
-            MySqlParameter name_para = new MySqlParameter("?iAcademy_name", MySqlDbType.VarChar, 24);
-            name_para.Value = AcaName;
+            MySqlParameter name_para = new MySqlParameter(_in, MySqlDbType.VarChar, 24);
+            name_para.Value = Name;
             mysqldata.SelectCommand.Parameters.Add(name_para);
             name_para.Direction = ParameterDirection.Input;
 
-            MySqlParameter id_para = new MySqlParameter("?iAcademy_id", MySqlDbType.Int64, 1);
+            MySqlParameter id_para = new MySqlParameter(_out, MySqlDbType.Int64, 1);
             id_para.Value = -1;
             mysqldata.SelectCommand.Parameters.Add(id_para);
             id_para.Direction = ParameterDirection.Output;
@@ -114,7 +115,7 @@ namespace StudentManagement.DataBase
             }
             catch (MySqlException e)
             {
-                MessageBox.Show("不存在该学院");
+                MessageBox.Show(failInfo);
                 mysqlcon.Close();
                 return -1;
             }
@@ -122,6 +123,14 @@ namespace StudentManagement.DataBase
             mysqlcon.Close();
 
             return (long)id_para.Value;
+        }
+        public long getAcadamyID(String AcaName)
+        {
+            return getXXID(AcaName, "GetAcademyID", "?iAcademy_name", "?iAcademy_id", "不存在" + AcaName);
+        }
+        public long getMajorID(String MajorName)
+        {
+            return getXXID(MajorName, "GetMajorID", "?iMajor_name", "?imajor_id", "不存在" + MajorName);
         }
         public bool addAcadamy(String AcaName)
         {
@@ -165,6 +174,37 @@ namespace StudentManagement.DataBase
             }
             mysqlcon.Close();
             return s;
+        }
+        public bool addMajor(long Acaid,String majorName)
+        {
+            mysqlcon.Open();
+            MySqlDataAdapter mysqldata = new MySqlDataAdapter();
+
+            mysqldata.SelectCommand = new MySqlCommand("AddMajor", mysqlcon);
+            mysqldata.SelectCommand.CommandType = CommandType.StoredProcedure;
+            MySqlParameter id_para = new MySqlParameter("?iAcademy_id", MySqlDbType.Int64, 1);
+            id_para.Value = Acaid;
+            mysqldata.SelectCommand.Parameters.Add(id_para);
+            id_para.Direction = ParameterDirection.Input;
+
+            MySqlParameter name_para = new MySqlParameter("?iMajor_name", MySqlDbType.VarChar, 24);
+            name_para.Value = majorName;
+            mysqldata.SelectCommand.Parameters.Add(name_para);
+            name_para.Direction = ParameterDirection.Input;
+            
+            try
+            {
+                mysqldata.SelectCommand.ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show("添加失败");
+                mysqlcon.Close();
+                return false;
+            }
+
+            mysqlcon.Close();
+            return true;
         }
 
         

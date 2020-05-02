@@ -84,8 +84,11 @@ namespace StudentManagement
 
             SubMenu[i] = new List<SubItem>();
             SubMenu[i].Add(new SubItem("学院管理", new AcadamyPageDesign(this)));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("系统管理", SubMenu[i], PackIconKind.Monitor), this));
-
+            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("学院管理", SubMenu[i], PackIconKind.Gear), this));
+            ++i;
+            SubMenu[i] = new List<SubItem>();
+            SubMenu[i].Add(new SubItem("导入学生信息", new StudentImportDesign(this)));
+            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("学生管理", SubMenu[i], PackIconKind.Person), this));
         }
 
         public MainWindow(StaticDataBase mysqlConnector)

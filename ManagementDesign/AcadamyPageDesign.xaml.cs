@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using StudentManagement;
+using StudentManagement.ManagementDesign;
 using System.Data;
 using MySql;
 using MySql.Data;
@@ -22,30 +23,36 @@ namespace StudentManagement.ManagementDesign
     /// <summary>
     /// AcadamyPageDesign.xaml 的交互逻辑
     /// </summary>
-    public partial class AcadamyPageDesign : UserControl
+    public partial class AcadamyPageDesign : UserControl,SecondPage
     {
 
         MainWindow root;
         DependencyProperty dp;
         int Cnt;
+        DataTable data;
+        SingleAcademyPage.SingleAcademyPage curPage = null;
         public AcadamyPageDesign(MainWindow prev)
         {
             InitializeComponent();
             root = prev;
             Menu1.Background = new SolidColorBrush(prev.MainThemeColor);
-            dp = DependencyProperty.Register("MenuItemValue", typeof(int), typeof(MenuItem));
-            DataTable data = root.dataBase.getAcadamy();
-            
-            for ( Cnt = 0; Cnt < data.Rows.Count;)
+            dp = DependencyProperty.Register("MenuItemValue", typeof(SingleAcademyPage.SingleAcademyPage), typeof(MenuItem));
+            data = root.dataBase.getAcadamy();
+            MessageBox.Show(data.Rows.Count.ToString());
+            for (Cnt = 0; Cnt < data.Rows.Count;)
             {
-                addMenuItem(data.Rows[Cnt]["Academy_name"].ToString());
+                String temp = data.Rows[Cnt]["Academy_name"].ToString();
+                addMenuItem(temp);
+                MessageBox.Show(Cnt.ToString());
+                ((MenuItem)Menu1.Items[Cnt - 1]).
+                    SetValue(dp, new SingleAcademyPage.SingleAcademyPage(
+                        root, ((long)(data.Rows[Cnt-1]["Academy_id"])), temp));
             }
         }
         public void addMenuItem(String header)
         {
             MenuItem menuItem = new MenuItem();
             menuItem.Click += MenuItem_Click;
-            menuItem.SetValue(dp, Cnt);
             menuItem.Header = header;
             Menu1.Items.Add(menuItem);
             ++Cnt;
@@ -53,8 +60,23 @@ namespace StudentManagement.ManagementDesign
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            int indx = (int)((MenuItem)sender).GetValue(dp);
-            MessageBox.Show(((MenuItem)Menu1.Items[indx]).Header.ToString());
+            if (curPage == null)///初始化
+            {
+                curPage = (SingleAcademyPage.SingleAcademyPage)((MenuItem)sender).GetValue(dp);
+
+            }
+            else if (curPage == (SingleAcademyPage.SingleAcademyPage)((MenuItem)sender).GetValue(dp))///不是初始化重新点击当前页面
+            {
+                MessageBox.Show("重新点");
+            }
+            else///更换页面
+            {
+
+                curPage = (SingleAcademyPage.SingleAcademyPage)((MenuItem)sender).GetValue(dp);
+                SubPanel.Children.Clear();
+                SubPanel.Children.Add(curPage);
+            }
+
         }
         private void addAcaButton_Click(object sender, RoutedEventArgs e)
         {
@@ -72,7 +94,15 @@ namespace StudentManagement.ManagementDesign
             if (k > 0)
             {
                 addMenuItem(acaName);
+                ((MenuItem)Menu1.Items[Cnt - 1]).
+                    SetValue(dp, new SingleAcademyPage.SingleAcademyPage(
+                        root, k, acaName));
             }
+        }
+
+        public void init(MainWindow curWindow)
+        {
+            throw new NotImplementedException();
         }
     }
 }

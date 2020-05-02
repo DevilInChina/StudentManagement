@@ -52,7 +52,6 @@ namespace StudentManagement.MainPageDesign
                 BufferStore[Id] = new DownloadFilePage();
                
             }
-            
             if (curIndex != Id)
             {
                 curIndex = Id;

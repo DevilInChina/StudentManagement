@@ -249,7 +249,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ManagementDesign\ConfirmMessageBox.xaml">
+    <Page Include="ManagementDesign\SingleAcademyPage\SingleAcademyPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -258,8 +258,8 @@
     <Compile Include="ManagementDesign\AcadamyPageDesign.xaml.cs">
       <DependentUpon>AcadamyPageDesign.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ManagementDesign\ConfirmMessageBox.xaml.cs">
-      <DependentUpon>ConfirmMessageBox.xaml</DependentUpon>
+    <Compile Include="ManagementDesign\SingleAcademyPage\SingleAcademyPage.xaml.cs">
+      <DependentUpon>SingleAcademyPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

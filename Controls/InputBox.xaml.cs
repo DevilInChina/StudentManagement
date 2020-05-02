@@ -46,6 +46,7 @@ public partial class InputBox : Window
             InitializeComponent();
             button.Content = Confirm;
             button1.Content = Cancle;
+            textBox.Text = null;
             this.Title = Quest; 
         }
         public delegate void PassDataBetweenFormHandler(object sender, PassDataWinFormEventArgs e);
@@ -57,6 +58,10 @@ public partial class InputBox : Window
             PassDataBetweenForm(this, args);
             this.Close();
         }
-        
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using StudentManagement.MainPageDesign.SystemManagementPage;
-namespace StudentManagement.MainPageDesign
+namespace StudentManagement
 {
     interface SecondPage
     {

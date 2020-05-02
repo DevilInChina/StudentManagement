@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudentManagement.Controls"
         mc:Ignorable="d"
-        Title="InputBox" Height="250" Width="250">
+        Title="InputBox" Height="250" Width="250"
+        ResizeMode="NoResize">
     <Grid Margin="0,0,3.4,-0.6">
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="36,132,0,0" VerticalAlignment="Top" Width="80" Click="button_Click"/>
-        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="128,132,0,0" VerticalAlignment="Top" Width="80"/>
+        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="128,132,0,0" VerticalAlignment="Top" Width="80" Click="button1_Click"/>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="36,65,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="172"/>
 
     </Grid>

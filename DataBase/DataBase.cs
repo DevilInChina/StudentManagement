@@ -91,7 +91,6 @@ namespace StudentManagement.DataBase
             mysqlcon.Close();
             return s;
         }
-
         public long getAcadamyID(String AcaName)
         {
             mysqlcon.Open();
@@ -120,8 +119,8 @@ namespace StudentManagement.DataBase
                 return -1;
             }
 
+            mysqlcon.Close();
 
-            
             return (long)id_para.Value;
         }
         public bool addAcadamy(String AcaName)
@@ -149,5 +148,25 @@ namespace StudentManagement.DataBase
             mysqlcon.Close();
             return true ;
         }
+        public DataTable getMajorOfAcademy(long AcademyID)
+        {
+            DataTable s = new DataTable();
+            mysqlcon.Open();
+            MySqlCommand mySqlCommand = new MySqlCommand("select * from major_information where Academy_id = "+AcademyID.ToString()+";", mysqlcon);
+            mySqlCommand.CommandType = CommandType.Text;
+            MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(mySqlCommand);
+            try
+            {
+                mySqlDataAdapter.Fill(s);
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            mysqlcon.Close();
+            return s;
+        }
+
+        
     }
 }

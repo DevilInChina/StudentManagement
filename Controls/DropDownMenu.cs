@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
 using System.Windows;
-namespace StudentManagement.DropDownMenu
+namespace StudentManagement.Controls
 {
     public class ItemMenu
     {
@@ -35,4 +35,5 @@ namespace StudentManagement.DropDownMenu
         public string Name { get; private set; }
         public UserControl Screen { get; private set; }
     }
+
 }

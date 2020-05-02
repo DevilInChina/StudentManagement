@@ -26,13 +26,53 @@ namespace StudentManagement.ManagementDesign
     {
 
         MainWindow root;
+        DependencyProperty dp;
+        int Cnt;
         public AcadamyPageDesign(MainWindow prev)
         {
             InitializeComponent();
             root = prev;
             Menu1.Background = new SolidColorBrush(prev.MainThemeColor);
+            dp = DependencyProperty.Register("MenuItemValue", typeof(int), typeof(MenuItem));
             DataTable data = root.dataBase.getAcadamy();
-            MessageBox.Show(data.Rows[0]["Academy_name"].ToString());
+            
+            for ( Cnt = 0; Cnt < data.Rows.Count;)
+            {
+                addMenuItem(data.Rows[Cnt]["Academy_name"].ToString());
+            }
+        }
+        public void addMenuItem(String header)
+        {
+            MenuItem menuItem = new MenuItem();
+            menuItem.Click += MenuItem_Click;
+            menuItem.SetValue(dp, Cnt);
+            menuItem.Header = header;
+            Menu1.Items.Add(menuItem);
+            ++Cnt;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            int indx = (int)((MenuItem)sender).GetValue(dp);
+            MessageBox.Show(((MenuItem)Menu1.Items[indx]).Header.ToString());
+        }
+        private void addAcaButton_Click(object sender, RoutedEventArgs e)
+        {
+            Controls.InputBox info = new Controls.InputBox("请输入新增学院名");
+            
+            info.PassDataBetweenForm += new Controls.InputBox.PassDataBetweenFormHandler(FinishAddAcaButtonClick);
+            info.Show();
+            info.Activate();
+        }
+        private void FinishAddAcaButtonClick(object sender, Controls.PassDataWinFormEventArgs e)
+        {
+            String acaName = e.Info;
+            root.dataBase.addAcadamy(acaName);
+            long k = root.dataBase.getAcadamyID(acaName);
+            if (k > 0)
+            {
+                addMenuItem(acaName);
+            }
         }
     }
 }

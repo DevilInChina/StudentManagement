@@ -112,10 +112,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\InputBox.xaml.cs">
+      <DependentUpon>InputBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataBase\DataBase.cs" />
-    <Compile Include="DropDownMenu\UserControlMenuItem.xaml.cs">
+    <Compile Include="Controls\UserControlMenuItem.xaml.cs">
       <DependentUpon>UserControlMenuItem.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\InputBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -184,7 +191,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DropDownMenu\DropDownMenu.cs" />
+    <Compile Include="Controls\DropDownMenu.cs" />
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -234,7 +241,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="DropDownMenu\UserControlMenuItem.xaml">
+    <Page Include="Controls\UserControlMenuItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -242,10 +249,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ManagementDesign\ConfirmMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ManagementDesign\AcadamyPageDesign.xaml.cs">
       <DependentUpon>AcadamyPageDesign.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagementDesign\ConfirmMessageBox.xaml.cs">
+      <DependentUpon>ConfirmMessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -290,6 +304,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataGenerate\main.cpp" />
+    <Resource Include="Pictures\kon2cut.jpg" />
+    <Resource Include="Pictures\ORA.jpg" />
+    <Resource Include="Pictures\reo.png" />
+    <Resource Include="Pictures\kon2.jpg" />
     <Content Include="SQL\addAca.sql" />
     <Resource Include="DataGenerate\academic.txt" />
     <Resource Include="DataGenerate\birthday.txt" />

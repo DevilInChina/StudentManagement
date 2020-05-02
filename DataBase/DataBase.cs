@@ -65,8 +65,6 @@ namespace StudentManagement.DataBase
                 //mysqldata.Fill(dataset, "Student");
                 mysqldata.SelectCommand.ExecuteNonQuery();
 
-                MessageBox.Show(mySqlParameter[0].Value.ToString());
-                MessageBox.Show(res[2].Value.ToString());
             }
             catch (MySqlException e)
             {
@@ -92,6 +90,64 @@ namespace StudentManagement.DataBase
             }
             mysqlcon.Close();
             return s;
+        }
+
+        public long getAcadamyID(String AcaName)
+        {
+            mysqlcon.Open();
+            MySqlDataAdapter mysqldata = new MySqlDataAdapter();
+
+            mysqldata.SelectCommand = new MySqlCommand("GetAcademyID", mysqlcon);
+            mysqldata.SelectCommand.CommandType = CommandType.StoredProcedure;
+            MySqlParameter name_para = new MySqlParameter("?iAcademy_name", MySqlDbType.VarChar, 24);
+            name_para.Value = AcaName;
+            mysqldata.SelectCommand.Parameters.Add(name_para);
+            name_para.Direction = ParameterDirection.Input;
+
+            MySqlParameter id_para = new MySqlParameter("?iAcademy_id", MySqlDbType.Int64, 1);
+            id_para.Value = -1;
+            mysqldata.SelectCommand.Parameters.Add(id_para);
+            id_para.Direction = ParameterDirection.Output;
+
+            try
+            {
+                mysqldata.SelectCommand.ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show("不存在该学院");
+                mysqlcon.Close();
+                return -1;
+            }
+
+
+            
+            return (long)id_para.Value;
+        }
+        public bool addAcadamy(String AcaName)
+        {
+            mysqlcon.Open();
+            MySqlDataAdapter mysqldata = new MySqlDataAdapter();
+
+            mysqldata.SelectCommand = new MySqlCommand("AddAcademy", mysqlcon);
+            mysqldata.SelectCommand.CommandType = CommandType.StoredProcedure;
+            MySqlParameter name_para = new MySqlParameter("?iAcademy_name", MySqlDbType.VarChar, 24);
+            name_para.Value = AcaName;
+            mysqldata.SelectCommand.Parameters.Add(name_para);
+            name_para.Direction = ParameterDirection.Input;
+            try
+            {
+                mysqldata.SelectCommand.ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show("添加失败");
+                mysqlcon.Close();
+                return false;
+            }
+
+            mysqlcon.Close();
+            return true ;
         }
     }
 }

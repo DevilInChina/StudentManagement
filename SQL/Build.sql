@@ -125,10 +125,24 @@ begin
     insert into academy_information (Academy_name) values (iAcademy_name);
 end
 $$
+DROP procedure if exists GetAcademyID ;
+create procedure GetAcademyID(in iAcademy_name varchar(24),out iAcademy_id bigint(1))
+begin
+    select Academy_id into iAcademy_id from academy_information where Academy_name = iAcademy_name;
+end
+$$
+DROP procedure if exists GetAcademyName ;
+create procedure GetAcademyName(in  iAcademy_id bigint(1),out iAcademy_name varchar(24))
+begin
+    select Academy_name into iAcademy_name from academy_information where Academy_id = iAcademy_id;
+end
+$$
+
 DROP procedure if exists AddMajor ;
 create procedure AddMajor(in iAcademy_id bigint(1), in iMajor_name varchar(24))
 begin
     insert into major_information (Academy_id,major_name) values (iAcademy_id,iMajor_name);
 end
 $$
+
 DELIMITER ;

@@ -22,5 +22,6 @@ begin
     select Correct = @temp into Correct;
 
 end
+
 $$
 DELIMITER ;

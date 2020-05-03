@@ -33,7 +33,7 @@ namespace StudentManagement
         {
             List<SubItem>[] SubMenu = new List<SubItem>[8];
             int i = 0;
-
+            
             CurListView = null;
             
             SubMenu[i] = new List<SubItem>();
@@ -91,7 +91,6 @@ namespace StudentManagement
             SubMenu[i].Add(new SubItem("导入学生信息", new StudentImportDesign(this)));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("学生管理", SubMenu[i], PackIconKind.Person), this));
         }
-
         public void LoadTeacher()
         {
             List<SubItem>[] SubMenu = new List<SubItem>[8];

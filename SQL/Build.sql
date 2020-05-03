@@ -75,7 +75,7 @@ references class_information(Class_id);
 create table teacher(
     Teacher_id bigint(1) primary key,
     Teacher_name varchar(24) not null,
-    Sex varchar(8) not null,
+    Gender varchar(8) not null,
     National varchar(8) not null,
     Birthday date not null,
     Academy_id bigint(1) not null,
@@ -89,13 +89,13 @@ alter table teacher add constraint outkey9 foreign key (Academy_id)
 references academy_information(Academy_id);
 
 create table course_information(
-    Class_id bigint(1) primary key,
+    course_id bigint(1) primary key,
     Teacher_id bigint(1) not null ,
     Credit int(1) not null,
     Max_capacity int(1) not null,
     Now_capacity int(1) not null,
     Academy_id bigint(1) not null,
-    Major_id bigint(1) not null,
+    Major_id bigint(1),
     Classroom_id bigint(1) not null
 );
 
@@ -109,16 +109,16 @@ alter table course_information add constraint outkey13 foreign key (Classroom_id
 references classroom_information(Classroom_id);
 
 create table select_information(
-    Select_id bigint(1) primary key,
+    Select_id bigint(1) primary key auto_increment,
     Student_id bigint(1) not null ,
-    Class_id bigint(1) not null,
+    course_id bigint(1) not null,
     Enable varchar(8) not null
 );
 
 alter table select_information add constraint outkey14 foreign key (Student_id) 
 references Student(Student_id);
-alter table select_information add constraint outkey15 foreign key (Class_id) 
-references class_information(Class_id);
+alter table select_information add constraint outkey15 foreign key (course_id) 
+references class_information(course_id);
 
 
 DELIMITER $$

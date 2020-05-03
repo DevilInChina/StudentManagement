@@ -162,23 +162,20 @@ namespace StudentManagement.ManagementDesign
                 int cnt = 0;
                 long curMajor = ls[0].majID;
                 int total = 0;
-                for (int i = 0; i <= ls.Count; ++i)
+                
+                Student guards = new Student("g","n","f","1","s",-1,-1,-1,"s");
+                ls.Add(guards);
+                for (int i = 0; i < ls.Count; ++i)
                 {
 
-                    bool shiftMajor = false;
-                    if (i == ls.Count)
+                    bool shiftGrade = false;
+                    
+                    if (curGrade != ls[i].grade)
                     {
-                        shiftMajor = true;
-                        cnt = 0;
+                        shiftGrade = true;
+                        curGrade = ls[i].grade;
                     }
-
-                    if (i < ls.Count && curGrade != ls[i].grade)
-                    {
-                        shiftMajor = true;
-                        cnt = 0;
-                    }
-
-                    if (shiftMajor || curMajor != ls[i].majID)
+                    if (shiftGrade || curMajor != ls[i].majID)
                     {
                         int ClassNumber = allocClass(total);
                         long[] ClsID = new long[ClassNumber];
@@ -186,7 +183,7 @@ namespace StudentManagement.ManagementDesign
                         {
                             String ClsName = ls[i - 1].majName + (ls[i - 1].grade % 100) + "-" + (id + 1);
                             //MessageBox.Show(ClsName+" "+id+" "+ ClassNumber);
-                            //root.dataBase.AddClass(ClsName, ls[i - 1].majID, ls[i - 1].acaID);
+                            root.dataBase.AddClass(ClsName, ls[i - 1].majID, ls[i - 1].acaID);
                             ClsID[id] = root.dataBase.getClassID(ClsName);
                         }
                         int st = i - total;
@@ -195,31 +192,27 @@ namespace StudentManagement.ManagementDesign
                             ls[st + beg].classID = ClsID[beg % ClassNumber];
                         }
                         ls.Sort(st, total, null);
+                        
+
                         for (int j = st; j < i; ++j)
                         {
                             ls[j].stuID = ls[j].grade * 100 + 1;
                             ls[j].stuID *= 10000;
                             ls[j].stuID += ++cnt;
                         }
-                        total = 0;
-                        if (i != ls.Count)
+                        if (shiftGrade)
                         {
-                            curMajor = ls[i].majID;
-                            curGrade = ls[i].grade;
+                            MessageBox.Show(cnt.ToString());
+                            cnt = 0;
                         }
+                        total = 0;
+                        curMajor = ls[i].majID;
+                        
                     }
                     ++total;
                 }
-                int indx = 3814;
-                MessageBox.Show(ls[indx].grade.ToString() + " " + ls[indx].stuID.ToString());
-                ++indx;
-                MessageBox.Show(ls[indx].grade.ToString() + " " + ls[indx].stuID.ToString());
-                ++indx;
-                MessageBox.Show(ls[indx].grade.ToString() + " " + ls[indx].stuID.ToString());
-                ++indx;
-                MessageBox.Show(ls[indx].grade.ToString() + " " + ls[indx].stuID.ToString());
-                ++indx;
-                //root.dataBase.AddStudent(ls);
+                ls.Remove(guards);
+                root.dataBase.AddStudent(ls);
             }
             else
             {
@@ -240,6 +233,5 @@ namespace StudentManagement.ManagementDesign
             addStudent();
         }
 
-        
     }
 }

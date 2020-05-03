@@ -68,6 +68,7 @@ namespace StudentManagement
                         Father.LoadStudent();
                         break;
                     case 1:
+                        Father.LoadTeacher();
                         break;
                     case 2:
                         Father.LoadManaged();
@@ -138,6 +139,5 @@ namespace StudentManagement
             
         }
 
-        
     }
 }

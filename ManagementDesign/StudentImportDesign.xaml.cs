@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Data;
 using System.IO;
 using StudentManagement.Controls;
+using System.Threading;
+using System.Windows.Threading;
 namespace StudentManagement.ManagementDesign
 {
     /// <summary>
@@ -24,6 +26,7 @@ namespace StudentManagement.ManagementDesign
     {
         
         MainWindow root;
+
         public StudentImportDesign(MainWindow root)
         {
             InitializeComponent();
@@ -111,30 +114,30 @@ namespace StudentManagement.ManagementDesign
 
             return ret;
         }
-        private void button_importStudent_Click(object sender, RoutedEventArgs e)
-        {
-            Microsoft.Win32.OpenFileDialog s = new Microsoft.Win32.OpenFileDialog();
-            Nullable<bool> re = s.ShowDialog();
 
-            String csvFilePath = null ;
-            if (re == true)
-            {
-                csvFilePath = s.FileName;
-            }
-            
+        private String CsvFilePath;
+        public delegate void AddStuDelegate();
+        private void addStudent()
+        {
             DataTable stuRawInfo = new DataTable();
-            
-            String[] header = {"name","national","birthday","grade","place","major","gender" };
-            if(OpenCSVFile(ref stuRawInfo, csvFilePath, header))
+
+            String[] header = { "name", "national", "birthday", "grade", "place", "major", "gender" };
+            if (OpenCSVFile(ref stuRawInfo, CsvFilePath, header))
             {
                 DataTable data = root.dataBase.getMajor();
                 DataColumn[] keys = new DataColumn[1];
                 keys[0] = data.Columns["major_name"];
+                int Maxv = 1000;
                 data.PrimaryKey = keys;
-
-                List<Student> ls = new List<Student>();
+                Predeal.Minimum = 0;
+                Predeal.Maximum = Maxv;
+                AddInfo.Maximum = Maxv;
+                AddInfo.Minimum = 0;
                 
-                for(int i = 0; i < stuRawInfo.Rows.Count; ++i)
+                
+                List<Student> ls = new List<Student>();
+                Predeal.Visibility = Visibility.Visible;
+                for (int i = 0; i < stuRawInfo.Rows.Count; ++i)
                 {
                     try
                     {
@@ -146,51 +149,53 @@ namespace StudentManagement.ManagementDesign
                             long.Parse(dataRow["major_id"].ToString()),
                             long.Parse(dataRow["Academy_id"].ToString()),
                             stuRawInfo.Rows[i]["major"].ToString()
-                            )) ;
-                    }catch (Exception ex)
+                            ));
+                    }
+                    catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                     }
                 }
                 ls.Sort();
-                MessageBox.Show(ls[0].name+" "+ls[0].majID.ToString()+" "+ls[0].gender);
+                //MessageBox.Show(ls[0].name + " " + ls[0].majID.ToString() + " " + ls[0].gender);
                 long curGrade = ls[0].grade;
                 int cnt = 0;
                 long curMajor = ls[0].majID;
                 int total = 0;
-                for(int i = 0; i <= ls.Count; ++i)
+                for (int i = 0; i <= ls.Count; ++i)
                 {
+
                     bool shiftMajor = false;
                     if (i == ls.Count)
                     {
                         shiftMajor = true;
                         cnt = 0;
                     }
-                    
-                    if (i<ls.Count && curGrade != ls[i].grade)
+
+                    if (i < ls.Count && curGrade != ls[i].grade)
                     {
                         shiftMajor = true;
                         cnt = 0;
                     }
-                    
-                    if(shiftMajor || curMajor != ls[i].majID)
+
+                    if (shiftMajor || curMajor != ls[i].majID)
                     {
                         int ClassNumber = allocClass(total);
                         long[] ClsID = new long[ClassNumber];
-                        for(int id = 0; id < ClassNumber; ++id)
+                        for (int id = 0; id < ClassNumber; ++id)
                         {
                             String ClsName = ls[i - 1].majName + (ls[i - 1].grade % 100) + "-" + (id + 1);
                             //MessageBox.Show(ClsName+" "+id+" "+ ClassNumber);
-                            root.dataBase.AddClass(ClsName, ls[i - 1].majID, ls[i - 1].acaID);
+                            //root.dataBase.AddClass(ClsName, ls[i - 1].majID, ls[i - 1].acaID);
                             ClsID[id] = root.dataBase.getClassID(ClsName);
                         }
                         int st = i - total;
-                        for(int beg = 0; beg < total; ++beg)
+                        for (int beg = 0; beg < total; ++beg)
                         {
-                            ls[st+beg].classID = ClsID[beg % ClassNumber];
+                            ls[st + beg].classID = ClsID[beg % ClassNumber];
                         }
-                        ls.Sort(st, total,null);
-                        for(int j = st; j < i; ++j)
+                        ls.Sort(st, total, null);
+                        for (int j = st; j < i; ++j)
                         {
                             ls[j].stuID = ls[j].grade * 100 + 1;
                             ls[j].stuID *= 10000;
@@ -205,12 +210,36 @@ namespace StudentManagement.ManagementDesign
                     }
                     ++total;
                 }
-                root.dataBase.AddStudent(ls);
+                int indx = 3814;
+                MessageBox.Show(ls[indx].grade.ToString() + " " + ls[indx].stuID.ToString());
+                ++indx;
+                MessageBox.Show(ls[indx].grade.ToString() + " " + ls[indx].stuID.ToString());
+                ++indx;
+                MessageBox.Show(ls[indx].grade.ToString() + " " + ls[indx].stuID.ToString());
+                ++indx;
+                MessageBox.Show(ls[indx].grade.ToString() + " " + ls[indx].stuID.ToString());
+                ++indx;
+                //root.dataBase.AddStudent(ls);
             }
             else
             {
                 MessageBox.Show("文件不合法");
             }
         }
+
+        private void button_importStudent_Click(object sender, RoutedEventArgs e)
+        {
+
+            Microsoft.Win32.OpenFileDialog s = new Microsoft.Win32.OpenFileDialog();
+            Nullable<bool> re = s.ShowDialog();
+
+            if (re == true)
+            {
+                CsvFilePath = s.FileName;
+            }
+            addStudent();
+        }
+
+        
     }
 }

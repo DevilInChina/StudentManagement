@@ -23,15 +23,4 @@ begin
 
 end
 $$
-DROP procedure if exists GetStudentInfoFromID ;
-create procedure GetStudentInfoFromID(in idn bigint(1) ,out iname varchar(24),out igender VarChar(8),out inational varchar(8),
-                                        out iacademic_id bigint(1),out imajor_id bigint(1),out iminor_id bigint(1),
-                                        out iclass_id bigint(1) ,out iPSD varchar(24),out ibirthday date,out igraduate VarChar(8))
-begin
-    select Student_name,Gender,National,Academy_id,Major_id,Minor_id,Class_id,passwords,birthday,graduate into 
-    iname,igender,inational,iacademic_id,imajor_id,iminor_id,iclass_id,iPSD,ibirthday,igraduate
-    from student
-    where student_id = idn;
-end
-$$
 DELIMITER ;

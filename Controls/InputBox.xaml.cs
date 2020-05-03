@@ -40,10 +40,10 @@ namespace StudentManagement.Controls
     }
 public partial class InputBox : Window
     {
-        String info;
         public InputBox( String Quest, String Confirm="确定", String Cancle = "取消")
         {
             InitializeComponent();
+            
             button.Content = Confirm;
             button1.Content = Cancle;
             textBox.Text = null;
@@ -56,6 +56,7 @@ public partial class InputBox : Window
         {
             PassDataWinFormEventArgs args = new PassDataWinFormEventArgs(textBox.Text);
             PassDataBetweenForm(this, args);
+            
             this.Close();
         }
 

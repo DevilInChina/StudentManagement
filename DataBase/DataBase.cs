@@ -219,7 +219,7 @@ namespace StudentManagement.DataBase
                 catch (MySqlException e)
                 {
                     MessageBox.Show(e.Message);
-                    ret = false;
+                   // ret = false;
                 }
             }
             mysqlcon.Close();

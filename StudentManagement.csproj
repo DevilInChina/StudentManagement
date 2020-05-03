@@ -115,6 +115,7 @@
     <Compile Include="Controls\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Student.cs" />
     <Compile Include="DataBase\DataBase.cs" />
     <Compile Include="Controls\UserControlMenuItem.xaml.cs">
       <DependentUpon>UserControlMenuItem.xaml</DependentUpon>

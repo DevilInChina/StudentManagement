@@ -24,6 +24,9 @@ create table class_information(
     UNIQUE(Class_name)
 );
 
+
+
+
 alter table class_information add constraint outkey2 foreign key (Academy_id) 
 references academy_information(Academy_id);
 alter table class_information add constraint outkey3 foreign key (major_id) 
@@ -51,16 +54,17 @@ create table Student(
     Gender varchar(8) not null,
     National varchar(8) not null,
     Birthday date not null,
-    Academy_id bigint(1) not null,
+    Grade bigint(1) not null,
     Major_id bigint(1) not null,
     Minor_id bigint(1),
     Class_id bigint(1) not null,
     passwords varchar(24) not null,
+    originPlace varchar(24) not null,
     graduate varchar(8) not null
 );
 
-alter table Student add constraint outkey4 foreign key (Academy_id) 
-references academy_information(Academy_id);
+#alter table Student add constraint outkey4 foreign key (Academy_id) 
+#references academy_information(Academy_id);
 alter table Student add constraint outkey5 foreign key (major_id) 
 references major_information(major_id);
 alter table Student add constraint outkey6 foreign key (Minor_id) 
@@ -151,4 +155,16 @@ begin
 end
 $$
 
+DROP procedure if exists AddClass ;
+create procedure AddClass(in iClass_name varchar(24),in imajor_id bigint(1),in iAcademy_id bigint(1))
+begin
+    insert into class_information (Class_name,major_id,Academy_id) values (iClass_name,imajor_id,iAcademy_id);
+end
+$$
+DROP procedure if exists GetClassID ;
+create procedure GetClassID(in iClass_name varchar(24),out iClass_id bigint(1))
+begin
+    select Class_id into iClass_id from class_information where Class_name = iClass_name;
+end
+$$
 DELIMITER ;

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data;
 using System.IO;
+using StudentManagement.Controls;
 namespace StudentManagement.ManagementDesign
 {
     /// <summary>
@@ -21,54 +22,7 @@ namespace StudentManagement.ManagementDesign
     /// </summary>
     public partial class StudentImportDesign : UserControl
     {
-        private class Student:IComparable<Student>
-        {
-            public String name;
-            public String national;
-            public String From;
-            public String birthday;
-            public String gender;
-            public long classID;
-            public long majID;
-            public long stuID;
-            public long acaID;
-            public int grade;
-            public Student(String name,String national, String From,String birthday,String gender,int grade, long majID,long acaID)
-            {
-                this.name = name;
-                this.national = national;
-                this.From = From;
-                this.birthday = birthday;
-                this.majID = majID;
-                this.acaID = acaID;
-                this.grade = grade;
-                this.gender = gender;
-            }
-            public int CompareTo(Student other)
-            {
-                if (grade != other.grade)
-                {
-                    return (int)(grade - other.grade);
-                }
-                if (acaID != other.acaID)
-                {
-                    return (int)(acaID - other.acaID);
-                }
-                if (majID != other.majID)
-                {
-                    return (int)(majID - other.majID);
-                }
-                int gend = gender.CompareTo(other.gender);
-                if (0!=gend)
-                {
-                    return name.CompareTo(other.name);
-                }
-                else
-                {
-                    return gend;
-                }
-            }
-        }
+        
         MainWindow root;
         public StudentImportDesign(MainWindow root)
         {
@@ -138,6 +92,25 @@ namespace StudentManagement.ManagementDesign
                 return false;
             }
         }
+
+        private int allocClass(int number)
+        {
+            int[] scal = { 29, 31 };
+            int used = 0;
+            int curmod = number % scal[0];
+            for (int i = 1; i < scal.Length; ++i)
+            {
+                if (number % scal[i] <= curmod)
+                {
+                    used = i;
+                    curmod = number % scal[i];
+                }
+            }///找到剩余人数较少的分配方案
+            int ret = number / scal[used];
+            if (ret == 0) return 1;
+
+            return ret;
+        }
         private void button_importStudent_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog s = new Microsoft.Win32.OpenFileDialog();
@@ -171,8 +144,9 @@ namespace StudentManagement.ManagementDesign
                             ((String)stuRawInfo.Rows[i]["gender"]),
                             int.Parse(((String)stuRawInfo.Rows[i]["grade"]).ToString()),
                             long.Parse(dataRow["major_id"].ToString()),
-                            long.Parse(dataRow["Academy_id"].ToString())
-                            ));
+                            long.Parse(dataRow["Academy_id"].ToString()),
+                            stuRawInfo.Rows[i]["major"].ToString()
+                            )) ;
                     }catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
@@ -182,18 +156,56 @@ namespace StudentManagement.ManagementDesign
                 MessageBox.Show(ls[0].name+" "+ls[0].majID.ToString()+" "+ls[0].gender);
                 long curGrade = ls[0].grade;
                 int cnt = 0;
-                for(int i = 0; i < ls.Count; ++i)
+                long curMajor = ls[0].majID;
+                int total = 0;
+                for(int i = 0; i <= ls.Count; ++i)
                 {
-                    if (curGrade != ls[i].grade)
+                    bool shiftMajor = false;
+                    if (i == ls.Count)
                     {
+                        shiftMajor = true;
                         cnt = 0;
-                        curGrade = ls[i].grade;
                     }
-                    ls[i].stuID = curGrade * 100 + 1;
-                    ls[i].stuID *= 10000;
-                    ls[i].stuID += ++cnt ;
-
+                    
+                    if (i<ls.Count && curGrade != ls[i].grade)
+                    {
+                        shiftMajor = true;
+                        cnt = 0;
+                    }
+                    
+                    if(shiftMajor || curMajor != ls[i].majID)
+                    {
+                        int ClassNumber = allocClass(total);
+                        long[] ClsID = new long[ClassNumber];
+                        for(int id = 0; id < ClassNumber; ++id)
+                        {
+                            String ClsName = ls[i - 1].majName + (ls[i - 1].grade % 100) + "-" + (id + 1);
+                            //MessageBox.Show(ClsName+" "+id+" "+ ClassNumber);
+                            root.dataBase.AddClass(ClsName, ls[i - 1].majID, ls[i - 1].acaID);
+                            ClsID[id] = root.dataBase.getClassID(ClsName);
+                        }
+                        int st = i - total;
+                        for(int beg = 0; beg < total; ++beg)
+                        {
+                            ls[st+beg].classID = ClsID[beg % ClassNumber];
+                        }
+                        ls.Sort(st, total,null);
+                        for(int j = st; j < i; ++j)
+                        {
+                            ls[j].stuID = ls[j].grade * 100 + 1;
+                            ls[j].stuID *= 10000;
+                            ls[j].stuID += ++cnt;
+                        }
+                        total = 0;
+                        if (i != ls.Count)
+                        {
+                            curMajor = ls[i].majID;
+                            curGrade = ls[i].grade;
+                        }
+                    }
+                    ++total;
                 }
+                root.dataBase.AddStudent(ls);
             }
             else
             {

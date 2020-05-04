@@ -58,7 +58,7 @@ namespace StudentManagement.ManagementDesign.SingleAcademyPage
         {
             String majorNane = e.Info;
             root.dataBase.addMajor(acaId,majorNane);
-            long k = root.dataBase.getAcadamyID(majorNane);
+            long k = root.dataBase.getMajorID(majorNane);
             if (k > 0)
             {
                 addListItem(majorNane);

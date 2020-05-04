@@ -23,7 +23,7 @@ namespace StudentManagement
         MainWindow Father;
         int CurrentType;
         int UserIDSize;
-        String sqlConnector = "server=127.0.0.1;port=3306;user=root;password=root; database=studentmanaged;";
+       String sqlConnector = "server=127.0.0.1;port=3306;user=root;password=root; database=studentmanaged;";
         StaticDataBase staticDataBase;
         public Login()
         {

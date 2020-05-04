@@ -7,9 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1200">
     <Grid>
-        <Button x:Name="button_importStudent" Content="Button" HorizontalAlignment="Left" Margin="88,74,0,0" VerticalAlignment="Top" Width="151" Height="82" RenderTransformOrigin="-0.222,0.393" Click="button_importStudent_Click"/>
-        <ProgressBar x:Name="Predeal" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="946" Margin="244,74,0,0" Visibility="Hidden"/>
-        <ProgressBar x:Name="AddInfo" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="946" Margin="244,131,0,0" Visibility="Hidden"/>
+        <Button x:Name="button_importStudent" Content="选取学生信息文件" HorizontalAlignment="Left" Margin="88,74,0,0" VerticalAlignment="Top" Width="151" Height="82" RenderTransformOrigin="-0.222,0.393" Click="button_importStudent_Click"/>
+        <ProgressBar x:Name="Predeal" DataContext="预处理" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="946" Margin="244,74,0,0" Visibility="Hidden" ValueChanged="Predeal_ValueChanged"/>
+        <ProgressBar x:Name="AddInfo" DataContext="添加到数据库" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="946" Margin="244,131,0,0" Visibility="Hidden"/>
 
     </Grid>
 </UserControl>

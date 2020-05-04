@@ -90,6 +90,10 @@ namespace StudentManagement
             SubMenu[i] = new List<SubItem>();
             SubMenu[i].Add(new SubItem("导入学生信息", new StudentImportDesign(this)));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("学生管理", SubMenu[i], PackIconKind.Person), this));
+            ++i;
+            SubMenu[i] = new List<SubItem>();
+            SubMenu[i].Add(new SubItem("添加教师信息", new TeacherAddDesign(this)));
+            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("教师管理", SubMenu[i], PackIconKind.Person), this));
         }
         public void LoadTeacher()
         {
@@ -100,8 +104,13 @@ namespace StudentManagement
 
             SubMenu[i] = new List<SubItem>();
             SubMenu[i].Add(new SubItem("分数登记", new ScoreReportDesign(this)));
-            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("选课学生管理", SubMenu[i], PackIconKind.Gear), this));
-            
+            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("学生管理", SubMenu[i], PackIconKind.Gear), this));
+            ++i;
+            SubMenu[i] = new List<SubItem>();
+            SubMenu[i].Add(new SubItem("添加课程", new ScoreReportDesign(this)));
+            Menu.Children.Add(new UserControlMenuItem(new ItemMenu("课程管理", SubMenu[i], PackIconKind.Gear), this));
+
+
         }
 
         public MainWindow(StaticDataBase mysqlConnector)

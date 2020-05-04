@@ -62,4 +62,19 @@ namespace StudentManagement.Controls
             }
         }
     }
+
+    public class Class_info
+    {
+        public string name { get; set; }
+        public long aca_id { get; set; }
+        public long cls_id { get; set; }
+        public long maj_id { get; set; }
+        public Class_info(String name, long Aca_id,long Cls_id,long Maj_id)
+        {
+            this.name = name;
+            this.aca_id = Aca_id;
+            this.cls_id = Cls_id;
+            this.maj_id = Maj_id;
+        }
+    }
 }

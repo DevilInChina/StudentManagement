@@ -15,8 +15,8 @@ using System.Windows.Shapes;
 using System.Data;
 using System.IO;
 using StudentManagement.Controls;
-using System.Threading;
-using System.Windows.Threading;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 namespace StudentManagement.ManagementDesign
 {
     /// <summary>
@@ -116,7 +116,6 @@ namespace StudentManagement.ManagementDesign
         }
 
         private String CsvFilePath;
-        public delegate void AddStuDelegate();
         private void addStudent()
         {
             DataTable stuRawInfo = new DataTable();
@@ -129,9 +128,10 @@ namespace StudentManagement.ManagementDesign
                 keys[0] = data.Columns["major_name"];
                 int Maxv = 1000;
                 data.PrimaryKey = keys;
+
+                Predeal.Visibility = Visibility.Hidden;
+                AddInfo.Visibility = Visibility.Hidden;
                 Predeal.Minimum = 0;
-                Predeal.Maximum = Maxv;
-                AddInfo.Maximum = Maxv;
                 AddInfo.Minimum = 0;
                 
                 
@@ -165,9 +165,13 @@ namespace StudentManagement.ManagementDesign
                 
                 Student guards = new Student("g","n","f","1","s",-1,-1,-1,"s");
                 ls.Add(guards);
+                List<Class_info> Cls_ls = new List<Class_info>();
+
+                Predeal.Maximum = ls.Count;
+                
                 for (int i = 0; i < ls.Count; ++i)
                 {
-
+                   
                     bool shiftGrade = false;
                     
                     if (curGrade != ls[i].grade)
@@ -177,14 +181,19 @@ namespace StudentManagement.ManagementDesign
                     }
                     if (shiftGrade || curMajor != ls[i].majID)
                     {
+                        
                         int ClassNumber = allocClass(total);
                         long[] ClsID = new long[ClassNumber];
                         for (int id = 0; id < ClassNumber; ++id)
                         {
                             String ClsName = ls[i - 1].majName + (ls[i - 1].grade % 100) + "-" + (id + 1);
-                            //MessageBox.Show(ClsName+" "+id+" "+ ClassNumber);
-                            root.dataBase.AddClass(ClsName, ls[i - 1].majID, ls[i - 1].acaID);
-                            ClsID[id] = root.dataBase.getClassID(ClsName);
+                            long Calclsid = ls[i - 1].grade;
+                            Calclsid *= 1000;
+                            Calclsid += ls[i - 1].majID;
+                            Calclsid *= 100;
+                            Calclsid+=id + 1;
+                            Cls_ls.Add(new Class_info(ClsName, ls[i - 1].acaID, Calclsid, ls[i - 1].majID));
+                            ClsID[id] = Calclsid;
                         }
                         int st = i - total;
                         for (int beg = 0; beg < total; ++beg)
@@ -202,7 +211,7 @@ namespace StudentManagement.ManagementDesign
                         }
                         if (shiftGrade)
                         {
-                            MessageBox.Show(cnt.ToString());
+                            //MessageBox.Show(cnt.ToString());
                             cnt = 0;
                         }
                         total = 0;
@@ -211,15 +220,20 @@ namespace StudentManagement.ManagementDesign
                     }
                     ++total;
                 }
+                Predeal.Value = Predeal.Maximum ;
+                AddInfo.Visibility = Visibility.Visible;
                 ls.Remove(guards);
+                AddInfo.Maximum = ls.Count+Cls_ls.Count;
+                root.dataBase.AddClass(Cls_ls);
                 root.dataBase.AddStudent(ls);
+                AddInfo.Value = AddInfo.Maximum;
             }
             else
             {
                 MessageBox.Show("文件不合法");
             }
         }
-
+        
         private void button_importStudent_Click(object sender, RoutedEventArgs e)
         {
 
@@ -233,5 +247,10 @@ namespace StudentManagement.ManagementDesign
             addStudent();
         }
 
+        private void Predeal_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            //MessageBox.Show("geto;");
+            Predeal.Focus();
+        }
     }
 }

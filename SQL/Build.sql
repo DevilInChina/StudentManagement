@@ -17,7 +17,7 @@ alter table major_information add constraint outkey1 foreign key (Academy_id)
 references academy_information(Academy_id);
 
 create table class_information(
-    Class_id bigint(1) primary key auto_increment,
+    Class_id bigint(1) primary key,
     Class_name varchar(24) not null,
     Academy_id bigint(1) not null,
     Major_id bigint(1) not null,
@@ -156,9 +156,9 @@ end
 $$
 
 DROP procedure if exists AddClass ;
-create procedure AddClass(in iClass_name varchar(24),in imajor_id bigint(1),in iAcademy_id bigint(1))
+create procedure AddClass(in iClass_name varchar(24),in iClass_id bigint(1),in imajor_id bigint(1),in iAcademy_id bigint(1))
 begin
-    insert into class_information (Class_name,major_id,Academy_id) values (iClass_name,imajor_id,iAcademy_id);
+    insert into class_information (Class_id,Class_name,major_id,Academy_id) values (iClass_id,iClass_name,imajor_id,iAcademy_id);
 end
 $$
 DROP procedure if exists GetClassID ;

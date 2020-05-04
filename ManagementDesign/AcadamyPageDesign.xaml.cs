@@ -69,7 +69,7 @@ namespace StudentManagement.ManagementDesign
             }
             else if (curPage == (SingleAcademyPage.SingleAcademyPage)((MenuItem)sender).GetValue(dp))///不是初始化重新点击当前页面
             {
-                MessageBox.Show("重新点");
+                
             }
             else///更换页面
             {

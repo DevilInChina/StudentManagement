@@ -120,6 +120,9 @@
     <Compile Include="Controls\UserControlMenuItem.xaml.cs">
       <DependentUpon>UserControlMenuItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManagementDesign\TeacherAddDesign.xaml.cs">
+      <DependentUpon>TeacherAddDesign.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TeacherPageDesign\ScoreReportDesign.xaml.cs">
       <DependentUpon>ScoreReportDesign.xaml</DependentUpon>
     </Compile>
@@ -258,6 +261,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManagementDesign\StudentImportDesign.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagementDesign\TeacherAddDesign.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

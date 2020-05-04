@@ -29,6 +29,7 @@ namespace StudentManagement
         public Color MainThemeColor;
         public StaticDataBase dataBase;
         public int type;//0 学生 1 教师 2 管理
+        public DependencyProperty ComboBoxItem_Long;
         public void LoadStudent()
         {
             List<SubItem>[] SubMenu = new List<SubItem>[8];
@@ -115,6 +116,7 @@ namespace StudentManagement
 
         public MainWindow(StaticDataBase mysqlConnector)
         {
+            ComboBoxItem_Long = DependencyProperty.Register("ComboBoxItem_Long", typeof(long), typeof(ComboBoxItem));
             InitializeComponent();
             MainThemeColor = new Color();
             MainThemeColor.R = 0;
@@ -127,14 +129,15 @@ namespace StudentManagement
         internal void SwitchScreen(object sender)
         {
             var screen = ((UserControl)sender);
+           //MessageBox.Show("Shift");
             if (screen != null)
             {
                 StackPanelMain.Children.Clear();
                 StackPanelMain.Children.Add(screen);
+                ((SecondPage)(screen)).Click();
             }
             else
             {
-
             }
         }
 

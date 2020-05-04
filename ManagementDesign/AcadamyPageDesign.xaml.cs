@@ -106,5 +106,10 @@ namespace StudentManagement.ManagementDesign
         {
             throw new NotImplementedException();
         }
+
+        public void Click()
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

@@ -171,6 +171,50 @@ namespace StudentManagement.DataBase
 
             return ret;
         }
+        public bool AddTeacher(Teacher info)
+        {
+            mysqlcon.Open();
+            MySqlDataAdapter mysqldata = new MySqlDataAdapter();
+
+            mysqldata.InsertCommand = new MySqlCommand("InsertTeacher", mysqlcon);
+            mysqldata.InsertCommand.CommandType = CommandType.StoredProcedure;
+            MySqlParameter[] mySqlParameter = new MySqlParameter[12];
+            int indx = 0;
+            mySqlParameter[indx++] = new MySqlParameter("?iTeacher_id", MySqlDbType.Int64, 1);
+            mySqlParameter[indx - 1].Value = info.Teaid;
+            mySqlParameter[indx++] = new MySqlParameter("?iTeacher_name", MySqlDbType.VarChar, 24);
+            mySqlParameter[indx - 1].Value = info.name;
+            mySqlParameter[indx++] = new MySqlParameter("?igender", MySqlDbType.VarChar, 8);
+            mySqlParameter[indx - 1].Value = info.gender;
+            mySqlParameter[indx++] = new MySqlParameter("?inational", MySqlDbType.VarChar, 8);
+            mySqlParameter[indx - 1].Value = info.national;
+            mySqlParameter[indx++] = new MySqlParameter("?imajor_id", MySqlDbType.Int64, 1);
+            mySqlParameter[indx - 1].Value = info.majID;
+            mySqlParameter[indx++] = new MySqlParameter("?iAcademy_id", MySqlDbType.Int64, 1);
+            mySqlParameter[indx - 1].Value = info.acaID;
+            mySqlParameter[indx++] = new MySqlParameter("?iPSD", MySqlDbType.VarChar, 24);
+            mySqlParameter[indx - 1].Value = "666666";
+            mySqlParameter[indx++] = new MySqlParameter("?ibirthday", MySqlDbType.Int64, 1);
+            mySqlParameter[indx - 1].Value = info.birthday;
+            for (int i = 0; i < indx; ++i)
+            {
+                mySqlParameter[i].Direction = ParameterDirection.Input;
+                mysqldata.InsertCommand.Parameters.Add(mySqlParameter[i]);
+            }
+            bool ret = true;
+            try
+            {
+                mysqldata.InsertCommand.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                ret = false;
+            }
+            mysqlcon.Close();
+
+            return ret;
+        }
         public bool AddClass(List<Class_info>Info)
         {
             mysqlcon.Open();

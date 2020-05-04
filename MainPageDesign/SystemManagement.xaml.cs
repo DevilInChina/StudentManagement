@@ -38,6 +38,11 @@ namespace StudentManagement.MainPageDesign
             curIndex = -1;
         }
 
+        public void Click()
+        {
+            throw new NotImplementedException();
+        }
+
         public void init(MainWindow curWindow)
         {
             Menu1.Background = new SolidColorBrush(curWindow.MainThemeColor);

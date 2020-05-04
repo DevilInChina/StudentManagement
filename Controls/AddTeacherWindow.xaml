@@ -1,0 +1,32 @@
+﻿<Window x:Class="StudentManagement.Controls.AddTeacherWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudentManagement.Controls"
+        mc:Ignorable="d"
+        Title="AddTeacherWindow" Height="450" Width="800"
+        ResizeMode="NoResize"
+        Closing="Window_Closing"
+        >
+    <Grid>
+        <Grid HorizontalAlignment="Left" Height="141" VerticalAlignment="Top" Width="774" Margin="10,147,0,0" Background="AliceBlue" Opacity="0.95">
+            <TextBox x:Name="nameBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="82,28,0,0"/>
+            <DatePicker x:Name="datePicker"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="181,107,0,0"/>
+            <TextBox x:Name="nationalBox" HorizontalAlignment="Left" Height="23" Margin="82,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <ComboBox x:Name="AcademyBox" HorizontalAlignment="Left" Margin="226,28,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="AcademyBox_SelectionChanged"/>
+            <ComboBox x:Name="MajorBox" HorizontalAlignment="Left" Margin="357,28,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="MajorBox_SelectionChanged"/>
+            <RadioButton x:Name="male" Content="男" HorizontalAlignment="Left" Margin="493,57,0,0" VerticalAlignment="Top" Checked="male_Checked" />
+            <RadioButton x:Name="female" Content="女" HorizontalAlignment="Left" Margin="493,34,0,0" VerticalAlignment="Top" Checked="female_Checked"/>
+            <TextBox x:Name="USER_ID" HorizontalAlignment="Left" Height="23" Margin="268,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209" PreviewKeyDown="USERID_PreviewKeyDown" InputMethod.IsInputMethodEnabled="False"/>
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="41,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Right"><Run Text="姓名"/><Run Text="："/></TextBlock>
+            <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="41,77,0,0" TextWrapping="Wrap" Text="民族：" VerticalAlignment="Top" TextAlignment="Right" RenderTransformOrigin="0.311,3.193"/>
+            <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="215,77,0,0" TextWrapping="Wrap" Text="用户名：" VerticalAlignment="Top"/>
+            <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="41,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="生日"/><Run Text="："/></TextBlock>
+            <Button x:Name="Confirm" Content="添加" HorizontalAlignment="Left" Margin="584,10,0,0" VerticalAlignment="Top" Width="75" Height="45" Click="Confirm_Click"/>
+            <Button x:Name="Cancle" Content="取消" HorizontalAlignment="Left" Margin="584,69,0,0" VerticalAlignment="Top" Width="75" Height="45" Background="Red" Click="Cancle_Click"/>
+
+        </Grid>
+
+    </Grid>
+</Window>

@@ -171,6 +171,9 @@ namespace StudentManagement.MainPageDesign
             }
         }
 
-       
+        public void Click()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

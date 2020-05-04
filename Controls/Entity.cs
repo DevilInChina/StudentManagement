@@ -62,6 +62,26 @@ namespace StudentManagement.Controls
             }
         }
     }
+    public class Teacher 
+    {
+        public String name;
+        public String national;
+        public String birthday;
+        public String gender;
+        public long majID;
+        public long Teaid;
+        public long acaID;
+        public Teacher(String name, String national, String birthday, String gender, long majID, long acaID,long Teaid)
+        {
+            this.name = name;
+            this.national = national;
+            this.birthday = birthday;
+            this.majID = majID;
+            this.acaID = acaID;
+            this.gender = gender;
+            this.Teaid = Teaid;
+        }
+    }
 
     public class Class_info
     {
@@ -77,4 +97,8 @@ namespace StudentManagement.Controls
             this.maj_id = Maj_id;
         }
     }
+
+
+
+
 }

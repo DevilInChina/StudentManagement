@@ -22,7 +22,7 @@ namespace StudentManagement.ManagementDesign
     /// <summary>
     /// StudentImportDesign.xaml 的交互逻辑
     /// </summary>
-    public partial class StudentImportDesign : UserControl
+    public partial class StudentImportDesign : UserControl,SecondPage
     {
         
         MainWindow root;
@@ -251,6 +251,16 @@ namespace StudentManagement.ManagementDesign
         {
             //MessageBox.Show("geto;");
             Predeal.Focus();
+        }
+
+        public void init(MainWindow curWindow)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Click()
+        {
+            //throw new NotImplementedException();
         }
     }
 }

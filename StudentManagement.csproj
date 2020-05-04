@@ -112,10 +112,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\AddTeacherWindow.xaml.cs">
+      <DependentUpon>AddTeacherWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Student.cs" />
+    <Compile Include="Controls\Entity.cs" />
     <Compile Include="DataBase\DataBase.cs" />
     <Compile Include="Controls\UserControlMenuItem.xaml.cs">
       <DependentUpon>UserControlMenuItem.xaml</DependentUpon>
@@ -123,9 +126,16 @@
     <Compile Include="ManagementDesign\TeacherAddDesign.xaml.cs">
       <DependentUpon>TeacherAddDesign.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TeacherPageDesign\CourseAddDesign.xaml.cs">
+      <DependentUpon>CourseAddDesign.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TeacherPageDesign\ScoreReportDesign.xaml.cs">
       <DependentUpon>ScoreReportDesign.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\AddTeacherWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\InputBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -268,6 +278,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TeacherPageDesign\CourseAddDesign.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TeacherPageDesign\ScoreReportDesign.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -330,6 +344,7 @@
     <Resource Include="Pictures\ORA.jpg" />
     <Resource Include="Pictures\reo.png" />
     <Resource Include="Pictures\kon2.jpg" />
+    <Resource Include="Pictures\kon3.PNG" />
     <Content Include="SQL\addAca.sql" />
     <Resource Include="DataGenerate\academic.txt" />
     <Resource Include="DataGenerate\birthday.txt" />

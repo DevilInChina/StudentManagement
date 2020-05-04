@@ -16,12 +16,12 @@ using System.Windows.Shapes;
 namespace StudentManagement.TeacherPageDesign
 {
     /// <summary>
-    /// ScoreReportDesign.xaml 的交互逻辑
+    /// CourseAddDesign.xaml 的交互逻辑
     /// </summary>
-    public partial class ScoreReportDesign : UserControl,SecondPage
+    public partial class CourseAddDesign : UserControl,SecondPage
     {
         MainWindow root;
-        public ScoreReportDesign(MainWindow root)
+        public CourseAddDesign(MainWindow root)
         {
             InitializeComponent();
             this.root = root;

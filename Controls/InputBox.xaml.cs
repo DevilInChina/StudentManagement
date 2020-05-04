@@ -36,18 +36,18 @@ namespace StudentManagement.Controls
             get { return info; }
             set { info = value; }
         }
-        
+
     }
-public partial class InputBox : Window
+    public partial class InputBox : Window
     {
-        public InputBox( String Quest, String Confirm="确定", String Cancle = "取消")
+        public InputBox(String Quest, String Confirm = "确定", String Cancle = "取消")
         {
             InitializeComponent();
-            
+
             button.Content = Confirm;
             button1.Content = Cancle;
             textBox.Text = null;
-            this.Title = Quest; 
+            this.Title = Quest;
         }
         public delegate void PassDataBetweenFormHandler(object sender, PassDataWinFormEventArgs e);
         //添加一个PassDataBetweenFormHandler类型的事件
@@ -56,7 +56,7 @@ public partial class InputBox : Window
         {
             PassDataWinFormEventArgs args = new PassDataWinFormEventArgs(textBox.Text);
             PassDataBetweenForm(this, args);
-            
+
             this.Close();
         }
 

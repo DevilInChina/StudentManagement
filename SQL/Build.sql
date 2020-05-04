@@ -73,7 +73,7 @@ alter table Student add constraint outkey7 foreign key (Class_id)
 references class_information(Class_id);
 
 create table teacher(
-    Teacher_id bigint(1) primary key,
+    Teacher_id bigint(1) primary key auto_increment,
     Teacher_name varchar(24) not null,
     Gender varchar(8) not null,
     National varchar(8) not null,
@@ -179,6 +179,19 @@ begin
     (idn,iname,igender,inational,iGrade,imajor_id,iminor_id,iclass_id,iPSD,ibirthday,igraduate,iOriginPlace);
 end
 $$
+
+DROP procedure if exists InsertTeacher ;
+create procedure InsertTeacher(in iTeacher_id bigint(1), in iTeacher_name varchar(24),in igender VarChar(8),in inational varchar(8),
+                                in imajor_id bigint(1),in iAcademy_id bigint(1),in iPSD varchar(24),
+                                in ibirthday date)
+begin
+    insert into teacher 
+    (Teacher_id,Teacher_name,Gender,National,Major_id,Academy_id,Birthday,passwords)
+    values 
+    (iTeacher_id,iTeacher_name,igender,inational,imajor_id,iAcademy_id,ibirthday,iPSD);
+end
+$$
+
 DROP procedure if exists PassWordCheck ;
 create procedure PassWordCheck(in idn bigint(1),in iPSD varchar(24),out Correct int(1) )
 begin

@@ -18,6 +18,7 @@ namespace StudentManagement
     interface SecondPage
     {
         void init(MainWindow curWindow);
+        void Click();
     }
     interface ThirdPage
     {

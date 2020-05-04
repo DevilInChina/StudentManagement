@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Data;
+using StudentManagement.Controls;
 namespace StudentManagement.ManagementDesign
 {
     /// <summary>
@@ -21,15 +22,36 @@ namespace StudentManagement.ManagementDesign
     public partial class TeacherAddDesign : UserControl,SecondPage
     {
         MainWindow root;
+        private DataTable AcadamyInfo;
+        private DataTable MajorInfo;
+        private DataTable TeacherTable;
         public TeacherAddDesign(MainWindow root)
         {
             InitializeComponent();
             this.root = root;
+            AcadamyInfo = null;
+            MajorInfo = null;
+        }
+
+        public void Click()
+        {
+            if (AcadamyInfo != null)
+            {
+                AcadamyInfo.Clear();
+                MajorInfo.Clear();
+            }
+            AcadamyInfo = root.dataBase.getAcadamy();
+            MajorInfo = root.dataBase.getMajor();
         }
 
         public void init(MainWindow curWindow)
         {
             throw new NotImplementedException();
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            AddTeacherWindow s=  new AddTeacherWindow("添加教师信息",AcadamyInfo, MajorInfo, root);
         }
     }
 }

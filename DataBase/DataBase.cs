@@ -30,54 +30,7 @@ namespace StudentManagement.DataBase
                 MessageBox.Show(ex.Message);
             }
         }
-        public MySqlParameterCollection getInfoFromId(long studentID)
-        {
-
-            mysqlcon.Open();
-            MySqlDataAdapter mysqldata = new MySqlDataAdapter();
-            
-            mysqldata.SelectCommand = new MySqlCommand("GetStudentInfoFromID", mysqlcon);
-            mysqldata.SelectCommand.CommandType = CommandType.StoredProcedure;
-            MySqlParameter id_para = new MySqlParameter("?idn", MySqlDbType.Int64, 1);//mysql的存储过程参数是以?打头的！！！！
-            id_para.Value = studentID;
-            mysqldata.SelectCommand.Parameters.Add(id_para);
-            id_para.Direction = ParameterDirection.Input;
-            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-            MySqlParameter[] mySqlParameter = new MySqlParameter[10];
-            int indx = 0;
-            mySqlParameter[indx++] = new MySqlParameter("?iname", MySqlDbType.VarChar, 24);
-            mySqlParameter[indx++] = new MySqlParameter("?igender", MySqlDbType.VarChar, 8);
-            mySqlParameter[indx++] = new MySqlParameter("?inational", MySqlDbType.VarChar, 8);
-            mySqlParameter[indx++] = new MySqlParameter("?iGrade", MySqlDbType.Int64, 1);
-            mySqlParameter[indx++] = new MySqlParameter("?imajor_id", MySqlDbType.Int64, 1);
-            mySqlParameter[indx++] = new MySqlParameter("?iminor_id", MySqlDbType.Int64, 1);
-            mySqlParameter[indx++] = new MySqlParameter("?iclass_id", MySqlDbType.Int64, 1);
-            mySqlParameter[indx++] = new MySqlParameter("?iPSD", MySqlDbType.VarChar, 24);
-            mySqlParameter[indx++] = new MySqlParameter("?ibirthday", MySqlDbType.Date, 1);
-            mySqlParameter[indx++] = new MySqlParameter("?igraduate", MySqlDbType.VarChar, 8);
-
-            MySqlParameterCollection res = mysqldata.SelectCommand.Parameters;
-            
-            for (int i = 0; i < indx; ++i)
-            {
-                mySqlParameter[i].Direction = ParameterDirection.Output;
-                mysqldata.SelectCommand.Parameters.Add(mySqlParameter[i]);
-            }
-
-            try
-            {
-                //mysqldata.Fill(dataset, "Student");
-                mysqldata.SelectCommand.ExecuteNonQuery();
-
-            }
-            catch (MySqlException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-            mysqlcon.Close();
-            return res;
-        }
+        
 
         public bool AddClass(String class_name,long class_id,long majID,long AcaID)
         {
@@ -348,6 +301,7 @@ namespace StudentManagement.DataBase
             mysqlcon.Close();
             return s;
         }
+        
         public DataTable getAcadamy()
         {
             return getXXXX("academy_information");
@@ -356,7 +310,71 @@ namespace StudentManagement.DataBase
         {
             return getXXXX("major_information");
         }
+        public DataTable getClassRoom()
+        {
+            return getXXXX("classroom_information");
+        }
+        private DataTable getXXXXByID(String table, String id_name, long ID)
+        {
+            DataTable s = new DataTable();
+            mysqlcon.Open();
+            MySqlCommand mySqlCommand =
+                new MySqlCommand("select * from " + table + " where " + id_name + " = " + ID.ToString() + ";", mysqlcon);
+            mySqlCommand.CommandType = CommandType.Text;
+            MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(mySqlCommand);
+            try
+            {
+                mySqlDataAdapter.Fill(s);
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            mysqlcon.Close();
+            return s;
+        }
 
+        public DataTable getStudentByID(long ID)
+        {
+            return getXXXXByID("Student", "Student_id",ID);
+        }
+        public DataTable getManagerByID(long ID)
+        {
+            return getXXXXByID("jwc_information", "Clerk_id", ID);
+        }
+        public DataTable getTeacherByID(long ID)
+        {
+            return getXXXXByID("teacher", "Teacher_id", ID);
+        }
+        public DataTable getCourseOfClassRoom(long classRoomID)
+        {
+            DataTable s = new DataTable();
+            mysqlcon.Open();
+            MySqlCommand mySqlCommand = 
+                new MySqlCommand("select * from course_information where Classroom_id = "+classRoomID.ToString()+";", 
+                mysqlcon);
+            mySqlCommand.CommandType = CommandType.Text;
+            MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(mySqlCommand);
+            try
+            {
+                mySqlDataAdapter.Fill(s);
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            mysqlcon.Close();
+            return s;
+        }
+        /// <summary>
+        /// 从某一个名字得到ID，要求事先写好存储过程
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Procedure"></param>
+        /// <param name="_in"></param>
+        /// <param name="_out"></param>
+        /// <param name="failInfo"></param>
+        /// <returns></returns>
         private long getXXID(String Name,String Procedure,String _in,String _out,String failInfo)
         {
             mysqlcon.Open();
@@ -477,6 +495,90 @@ namespace StudentManagement.DataBase
             return true;
         }
 
-        
+        public bool CheckPsd(String Procedure,long ID,String psd)
+        {
+            mysqlcon.Open();
+            MySqlDataAdapter mysqldata = new MySqlDataAdapter();
+
+            mysqldata.SelectCommand = new MySqlCommand(Procedure, mysqlcon);
+            mysqldata.SelectCommand.CommandType = CommandType.StoredProcedure;
+            MySqlParameter id_para = new MySqlParameter("?idn", MySqlDbType.Int64, 1);
+            id_para.Value = ID;
+            mysqldata.SelectCommand.Parameters.Add(id_para);
+            id_para.Direction = ParameterDirection.Input;
+
+            MySqlParameter iPSD = new MySqlParameter("?iPSD", MySqlDbType.Int64, 1);
+            iPSD.Value = psd;
+            mysqldata.SelectCommand.Parameters.Add(iPSD);
+            iPSD.Direction = ParameterDirection.Input;
+
+            MySqlParameter res = new MySqlParameter("?Correct", MySqlDbType.Int32, 1);
+            res.Value = null;
+            mysqldata.SelectCommand.Parameters.Add(res);
+            res.Direction = ParameterDirection.Output;
+
+            try
+            {
+                mysqldata.SelectCommand.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                mysqlcon.Close();
+                return false;
+            }
+            
+            mysqlcon.Close();
+            if (res.Value == null) return false;
+            return ((int)res.Value)!=0;
+        }
+
+        public bool InsertCourse(Course_info info)
+        {
+
+            mysqlcon.Open();
+            MySqlDataAdapter mysqldata = new MySqlDataAdapter();
+
+            mysqldata.InsertCommand = new MySqlCommand("InsertCourse", mysqlcon);
+            mysqldata.InsertCommand.CommandType = CommandType.StoredProcedure;
+            MySqlParameter[] mySqlParameter = new MySqlParameter[7];
+            int indx = 0;
+            mySqlParameter[indx++] = new MySqlParameter("?iTeacher_id", MySqlDbType.Int64, 1);
+            mySqlParameter[indx - 1].Value = info.Teacher_Id;
+            mySqlParameter[indx++] = new MySqlParameter("?icourse_name", MySqlDbType.VarChar, 24);
+            mySqlParameter[indx - 1].Value = info.name;
+            mySqlParameter[indx++] = new MySqlParameter("?iCredit", MySqlDbType.Int32, 1);
+            mySqlParameter[indx - 1].Value = info.Credit;
+            mySqlParameter[indx++] = new MySqlParameter("?iMax_capacity", MySqlDbType.Int32, 1);
+            mySqlParameter[indx - 1].Value = info.MaxCap;
+            mySqlParameter[indx++] = new MySqlParameter("?imajor_id", MySqlDbType.Int64, 1);
+            if (info.maj_id == -1) mySqlParameter[indx - 1].Value = null;
+            else mySqlParameter[indx - 1].Value = info.maj_id;
+            
+            mySqlParameter[indx++] = new MySqlParameter("?iClassroom_id", MySqlDbType.Int64, 1);
+            mySqlParameter[indx - 1].Value = info.cls_id;
+
+            mySqlParameter[indx++] = new MySqlParameter("?iClass_Time", MySqlDbType.Int64, 1);
+            mySqlParameter[indx - 1].Value = info.Class_Time;
+            for (int i = 0; i < indx; ++i)
+            {
+                mySqlParameter[i].Direction = ParameterDirection.Input;
+                mysqldata.InsertCommand.Parameters.Add(mySqlParameter[i]);
+            }
+            bool ret = true;
+            try
+            {
+                mysqldata.InsertCommand.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                ret = false;
+            }
+            mysqlcon.Close();
+
+            return ret;
+
+        }
+
     }
 }

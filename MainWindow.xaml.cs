@@ -18,6 +18,7 @@ using StudentManagement.ManagementDesign;
 using MaterialDesignThemes.Wpf;
 using StudentManagement.DataBase;
 using StudentManagement.TeacherPageDesign;
+using System.Data;
 namespace StudentManagement
 {
     /// <summary>
@@ -26,15 +27,19 @@ namespace StudentManagement
     public partial class MainWindow : Window
     {
         public ListView CurListView;
+        public DataTable selfInfo;
         public Color MainThemeColor;
         public StaticDataBase dataBase;
         public int type;//0 学生 1 教师 2 管理
         public DependencyProperty ComboBoxItem_Long;
+        public long PersonID { get; }
         public void LoadStudent()
         {
+            
             List<SubItem>[] SubMenu = new List<SubItem>[8];
             int i = 0;
-            
+            selfInfo = dataBase.getStudentByID(PersonID);
+            label.Content = "欢迎," + selfInfo.Rows[0]["Clerk_name"] + "同学";
             CurListView = null;
             
             SubMenu[i] = new List<SubItem>();
@@ -81,7 +86,8 @@ namespace StudentManagement
         {
             List<SubItem>[] SubMenu = new List<SubItem>[8];
             int i = 0;
-
+            selfInfo = dataBase.getManagerByID(PersonID);
+            label.Content = "欢迎," + selfInfo.Rows[0]["Clerk_name"] + "先生";
             CurListView = null;
 
             SubMenu[i] = new List<SubItem>();
@@ -100,7 +106,8 @@ namespace StudentManagement
         {
             List<SubItem>[] SubMenu = new List<SubItem>[8];
             int i = 0;
-
+            selfInfo = dataBase.getTeacherByID(PersonID);
+            label.Content = "欢迎," + selfInfo.Rows[0]["Teacher_name"] +"老师";
             CurListView = null;
 
             SubMenu[i] = new List<SubItem>();
@@ -114,7 +121,7 @@ namespace StudentManagement
 
         }
 
-        public MainWindow(StaticDataBase mysqlConnector)
+        public MainWindow(StaticDataBase mysqlConnector,long ID)
         {
             ComboBoxItem_Long = DependencyProperty.Register("ComboBoxItem_Long", typeof(long), typeof(ComboBoxItem));
             InitializeComponent();
@@ -123,12 +130,14 @@ namespace StudentManagement
             MainThemeColor.G = 127;
             MainThemeColor.B = 255;
             MainThemeColor.A = 127;
-            dataBase = mysqlConnector;
+            dataBase = mysqlConnector; 
+            PersonID = ID;
         }
 
         internal void SwitchScreen(object sender)
         {
             var screen = ((UserControl)sender);
+           
            //MessageBox.Show("Shift");
             if (screen != null)
             {

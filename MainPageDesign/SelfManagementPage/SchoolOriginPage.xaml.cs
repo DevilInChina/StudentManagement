@@ -27,9 +27,6 @@ namespace StudentManagement.MainPageDesign.SelfManagementPage
         public SchoolOriginPage(MainWindow root)
         {
             InitializeComponent();
-            StaticDataBase db = new StaticDataBase();
-            db.SetConnector("s");
-            info = db.getInfoFromId(1);
             
             
         }

@@ -28,7 +28,7 @@ namespace StudentManagement.ManagementDesign
 
         MainWindow root;
         DependencyProperty dp;
-        int Cnt;
+        private int Cnt;
         DataTable data;
         SingleAcademyPage.SingleAcademyPage curPage = null;
         public AcadamyPageDesign(MainWindow prev)
@@ -46,6 +46,7 @@ namespace StudentManagement.ManagementDesign
                     SetValue(dp, new SingleAcademyPage.SingleAcademyPage(
                         root, ((long)(data.Rows[Cnt-1]["Academy_id"])), temp));
             }
+            
         }
         public void addMenuItem(String header)
         {

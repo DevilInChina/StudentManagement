@@ -126,7 +126,6 @@ namespace StudentManagement.ManagementDesign
                 DataTable data = root.dataBase.getMajor();
                 DataColumn[] keys = new DataColumn[1];
                 keys[0] = data.Columns["major_name"];
-                int Maxv = 1000;
                 data.PrimaryKey = keys;
 
                 Predeal.Visibility = Visibility.Hidden;

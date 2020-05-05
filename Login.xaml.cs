@@ -23,7 +23,13 @@ namespace StudentManagement
         MainWindow Father;
         int CurrentType;
         int UserIDSize;
-       String sqlConnector = "server=127.0.0.1;port=3306;user=root;password=root; database=studentmanaged;";
+        String sqlConnector = "server=127.0.0.1;port=3306;user=root;password=root; database=studentmanaged;";
+        private String[] CheckProcedure =
+        {
+            "PassWordCheckStu",
+            "PassWordCheckTea",
+            "PassWordCheckMan"
+        };
         StaticDataBase staticDataBase;
         public Login()
         {
@@ -58,14 +64,22 @@ namespace StudentManagement
                  * PassWordCheck
                  * 
                  */
-
+                long ID = long.Parse(UserName.Text);
+                bool ret = staticDataBase.CheckPsd(CheckProcedure[CurrentType], ID, passwordBox.Password);
+                if (!ret)
+                {
+                    MessageBox.Show("请检查用户名或密码");
+                    return;
+                }
                 this.Hide();
                 
-                Father = new MainWindow(staticDataBase);
+                Father = new MainWindow(staticDataBase,ID);
                 switch (CurrentType)
                 {
                     case 0:
+
                         Father.LoadStudent();
+                        
                         break;
                     case 1:
                         Father.LoadTeacher();

@@ -40,11 +40,11 @@ create table jwc_information(
     Birthday date ,
     Passwords varchar(24) not null
 );
-
 create table classroom_information(
-    Classroom_id bigint(1) primary key,
+    Classroom_id bigint(1) primary key auto_increment,
     Classroom_name varchar(24) not null ,
-    Max_capacity int(1) not null
+    Max_capacity int(1) not null,
+    UNIQUE(Classroom_name)
 );
 
 create table Student(
@@ -72,7 +72,7 @@ alter table Student add constraint outkey7 foreign key (Class_id)
 references class_information(Class_id);
 
 create table teacher(
-    Teacher_id bigint(1) primary key auto_increment,
+    Teacher_id bigint(1) primary key ,
     Teacher_name varchar(24) not null,
     Gender varchar(8) not null,
     National varchar(8) not null,
@@ -88,23 +88,24 @@ alter table teacher add constraint outkey9 foreign key (Academy_id)
 references academy_information(Academy_id);
 
 create table course_information(
-    course_id bigint(1) primary key,
+    course_id bigint(1) primary key auto_increment,
+    course_name varchar(24) not null,
     Teacher_id bigint(1) not null ,
     Credit int(1) not null,
     Max_capacity int(1) not null,
     Now_capacity int(1) not null,
-    Academy_id bigint(1) not null,
     Major_id bigint(1),
     Classroom_id bigint(1) not null,
-    
+    Class_Time bigint(1) not null,
+    UNIQUE(course_name)
 );
 
 alter table course_information add constraint outkey10 foreign key (Teacher_id) 
 references teacher(Teacher_id);
 alter table course_information add constraint outkey11 foreign key (major_id) 
 references major_information(major_id);
-alter table course_information add constraint outkey12 foreign key (Academy_id) 
-references academy_information(Academy_id);
+#alter table course_information add constraint outkey12 foreign key (Academy_id) 
+#references academy_information(Academy_id);
 alter table course_information add constraint outkey13 foreign key (Classroom_id) 
 references classroom_information(Classroom_id);
 
@@ -118,7 +119,7 @@ create table select_information(
 alter table select_information add constraint outkey14 foreign key (Student_id) 
 references Student(Student_id);
 alter table select_information add constraint outkey15 foreign key (course_id) 
-references class_information(course_id);
+references course_information(course_id);
 
 
 DELIMITER $$
@@ -192,12 +193,30 @@ begin
 end
 $$
 
-DROP procedure if exists PassWordCheck ;
+DROP procedure if exists PassWordCheckStu ;
 create procedure PassWordCheck(in idn bigint(1),in iPSD varchar(24),out Correct int(1) )
 begin
     set @temp = '';
     select passwords into @temp from student where student_id = idn;
-    select Correct = @temp into Correct;
+    select iPSD = @temp into Correct;
+
+end
+$$
+DROP procedure if exists PassWordCheckTea ;
+create procedure PassWordCheckTea(in idn bigint(1),in iPSD varchar(24),out Correct int(1) )
+begin
+    set @temp = '';
+    select passwords into @temp from teacher where Teacher_id = idn;
+    select iPSD = @temp into Correct;
+
+end
+$$
+DROP procedure if exists PassWordCheckMan ;
+create procedure PassWordCheckMan(in idn bigint(1),in iPSD varchar(24),out Correct int(1) )
+begin
+    set @temp = '';
+    select passwords into @temp from jwc_information where Clerk_id = idn;
+    select iPSD = @temp into Correct;
 
 end
 $$
@@ -208,21 +227,26 @@ begin
     insert into classroom_information 
     (Classroom_name,Max_capacity)
     values
-    (iClassroom_name,iMax_capacity)
+    (iClassroom_name,iMax_capacity);
 end
 $$
 DROP procedure if exists GetClassroomByID ;
-create procedure GetClassroomByID(in iClassroom_id)
+create procedure GetClassroomByID(in iClassroom_id bigint(1))
 begin
     select * from classroom_information where Classroom_id = iClassroom_id;
 end
 $$
-DROP procedure if exists GetClassroom ;
-create procedure GetClassroom()
+
+DROP procedure if exists InsertCourse ;
+create procedure InsertCourse(in iTeacher_id bigint(1), in icourse_name varchar(24),in iCredit int(1),in iMax_capacity int(1),
+                                in imajor_id bigint(1),in iClassroom_id bigint(1),in iClass_Time bigint(1))
 begin
-    select * from classroom_information;
+    insert into course_information 
+    (Teacher_id,course_name,Credit,Max_capacity,Major_id,Classroom_id,Now_capacity,Class_Time)
+    values 
+    (iTeacher_id,icourse_name,iCredit,iMax_capacity,imajor_id,iClassroom_id,0,iClass_Time);
 end
 $$
-
 DELIMITER ;
 
+insert into jwc_information(Clerk_id,Clerk_name,Gender,Passwords)values(1,'高','m','1');

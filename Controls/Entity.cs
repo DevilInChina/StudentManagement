@@ -98,7 +98,26 @@ namespace StudentManagement.Controls
         }
     }
 
-
+    public class Course_info
+    {
+        public string name { get; set; }
+        public long cls_id { get; set; }
+        public long maj_id { get; set; }
+        public int Credit { get; set; }
+        public long Teacher_Id { get; set; }
+        public int MaxCap { get; set; }
+        public long Class_Time { get; set; }
+        public Course_info(String name, long Teacher_Id, long Cls_id, long Maj_id, int MaxCap, int Credit,long Class_Time)
+        {
+            this.name = name;
+            this.cls_id = Cls_id;
+            this.maj_id = Maj_id;
+            this.Teacher_Id = Teacher_Id;
+            this.MaxCap = MaxCap;
+            this.Credit = Credit;
+            this.Class_Time = Class_Time;
+        }
+    }
 
 
 }

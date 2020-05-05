@@ -42,6 +42,9 @@ namespace StudentManagement.ManagementDesign
             }
             AcadamyInfo = root.dataBase.getAcadamy();
             MajorInfo = root.dataBase.getMajor();
+           // DataGridCell s = new DataGridCell();
+            
+
         }
 
         public void init(MainWindow curWindow)

@@ -115,6 +115,9 @@
     <Compile Include="Controls\AddTeacherWindow.xaml.cs">
       <DependentUpon>AddTeacherWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CourseTable.xaml.cs">
+      <DependentUpon>CourseTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
@@ -133,6 +136,10 @@
       <DependentUpon>ScoreReportDesign.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\AddTeacherWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CourseTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -345,7 +352,7 @@
     <Resource Include="Pictures\reo.png" />
     <Resource Include="Pictures\kon2.jpg" />
     <Resource Include="Pictures\kon3.PNG" />
-    <Content Include="SQL\addAca.sql" />
+    <Content Include="SQL\BuildBasicInfo.sql" />
     <Resource Include="DataGenerate\academic.txt" />
     <Resource Include="DataGenerate\birthday.txt" />
     <Resource Include="DataGenerate\birthplace.txt" />

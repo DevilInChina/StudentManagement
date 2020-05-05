@@ -44,7 +44,6 @@ create table jwc_information(
 create table classroom_information(
     Classroom_id bigint(1) primary key,
     Classroom_name varchar(24) not null ,
-    Tower_id bigint(1) not null,
     Max_capacity int(1) not null
 );
 
@@ -96,7 +95,8 @@ create table course_information(
     Now_capacity int(1) not null,
     Academy_id bigint(1) not null,
     Major_id bigint(1),
-    Classroom_id bigint(1) not null
+    Classroom_id bigint(1) not null,
+    
 );
 
 alter table course_information add constraint outkey10 foreign key (Teacher_id) 
@@ -201,5 +201,28 @@ begin
 
 end
 $$
+
+DROP procedure if exists AddClassroom ;
+create procedure AddClassroom(in iClassroom_name varchar(24),in iMax_capacity int(1) )
+begin
+    insert into classroom_information 
+    (Classroom_name,Max_capacity)
+    values
+    (iClassroom_name,iMax_capacity)
+end
+$$
+DROP procedure if exists GetClassroomByID ;
+create procedure GetClassroomByID(in iClassroom_id)
+begin
+    select * from classroom_information where Classroom_id = iClassroom_id;
+end
+$$
+DROP procedure if exists GetClassroom ;
+create procedure GetClassroom()
+begin
+    select * from classroom_information;
+end
+$$
+
 DELIMITER ;
 

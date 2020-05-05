@@ -25,3 +25,8 @@ call AddMajor(4,'英语');
 call AddMajor(2,'计算机科学与技术');
 call AddMajor(3,'资源勘查工程');
 call AddMajor(1,'过程装备与控制工程');
+
+call AddClassroom('三教105',260);
+call AddClassroom('三教106',260);
+call AddClassroom('三教104',120);
+call AddClassroom('三教103',120);

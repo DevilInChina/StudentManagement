@@ -108,7 +108,7 @@ namespace StudentManagement
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("学生管理", SubMenu[i], PackIconKind.Gear), this));
             ++i;
             SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("添加课程", new ScoreReportDesign(this)));
+            SubMenu[i].Add(new SubItem("添加课程", new CourseAddDesign(this)));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("课程管理", SubMenu[i], PackIconKind.Gear), this));
 
 

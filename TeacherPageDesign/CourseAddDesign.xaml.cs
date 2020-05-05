@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using StudentManagement.Controls;
 namespace StudentManagement.TeacherPageDesign
 {
     /// <summary>
@@ -25,16 +25,28 @@ namespace StudentManagement.TeacherPageDesign
         {
             InitializeComponent();
             this.root = root;
+            DependencyProperty Dp = DependencyProperty.Register("Btn_to_int", typeof(int), typeof(Button));
+            selectTable.init(Dp,"选择上课时间");//#FF2196F3
+            
         }
 
         public void Click()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void init(MainWindow curWindow)
         {
             throw new NotImplementedException();
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            if(Course_Name.Text==null || Cap_comboBox.SelectedItem==null || Circle_comboBox.SelectedItem == null)
+            {
+
+            }
+
         }
     }
 }

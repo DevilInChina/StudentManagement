@@ -8,6 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="63,45,0,0" Click="button_Click"/>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="158" Margin="166,154,0,0" VerticalAlignment="Top" Width="455"/>
 
     </Grid>
 </UserControl>

@@ -151,10 +151,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPageDesign\CourseChoosen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainPageDesign\CourseChoosenPage\CurrentYearPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -218,9 +214,6 @@
     <Compile Include="Controls\DropDownMenu.cs" />
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainPageDesign\CourseChoosen.xaml.cs">
-      <DependentUpon>CourseChoosen.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPageDesign\CourseChoosenPage\CurrentYearPage.xaml.cs">
       <DependentUpon>CurrentYearPage.xaml</DependentUpon>

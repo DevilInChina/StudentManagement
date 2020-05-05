@@ -23,6 +23,7 @@ namespace StudentManagement.TeacherPageDesign
     {
         MainWindow root;
         DataTable ClassRoomInfo;
+        DataTable CourseInfo;
         public CourseAddDesign(MainWindow root)
         {
             InitializeComponent();
@@ -33,7 +34,8 @@ namespace StudentManagement.TeacherPageDesign
             DataColumn[] keys = new DataColumn[1];
             keys[0] = ClassRoomInfo.Columns["Classroom_name"];
             ClassRoomInfo.PrimaryKey = keys;
-            
+            CourseInfo = root.dataBase.getCourseOfClassRoom(0, root.PersonID);
+            selectTable.RefreshButtionInfo(CourseInfo);
             for (int i = 0; i < ClassRoomInfo.Rows.Count; ++i)
             {
                 ComboBoxItem comboBoxItem = new ComboBoxItem();
@@ -81,17 +83,20 @@ namespace StudentManagement.TeacherPageDesign
             int Cap = int.Parse(((Label)Cap_comboBox.SelectedItem).Content.ToString());
             MessageBox.Show(CLSID.ToString());
             MessageBoxResult RES =
-             MessageBox.Show("确定添加这门学分为"+res.ToString()+"课程？", "提示", MessageBoxButton.YesNo);
+             MessageBox.Show("确定添加这门学分为"+res.ToString()+"的课程？", "提示", MessageBoxButton.YesNo);
             if (RES == MessageBoxResult.Yes)
             {
-                root.dataBase.InsertCourse(new Course_info(
+                bool AddSuc= root.dataBase.InsertCourse(new Course_info(
                     Course_Name.Text,
                     root.PersonID,
                     CLSID,-1,Cap,res, selectTable.GetSelectInfo()
                     )) ;//-1表示非专业必修课
-                DataTable dataTable = root.dataBase.getCourseOfClassRoom(CLSID);
-                selectTable.RefreshButtionInfo(dataTable);
-                MessageBox.Show("添加成功");
+                if (AddSuc)
+                {
+                    DataTable dataTable = root.dataBase.getCourseOfClassRoom(CLSID, root.PersonID);
+                    selectTable.RefreshButtionInfo(dataTable);
+                    MessageBox.Show("添加成功");
+                }
             }
             else
             {
@@ -105,8 +110,8 @@ namespace StudentManagement.TeacherPageDesign
             DataRow dataRow = ClassRoomInfo.Rows.Find(
             ((ComboBoxItem)Classroom_comboBox.SelectedItem).Content.ToString());
             long CLSID = (long)dataRow["Classroom_id"];
-            DataTable dataTable = root.dataBase.getCourseOfClassRoom(CLSID);
-            selectTable.RefreshButtionInfo(dataTable);
+            CourseInfo = root.dataBase.getCourseOfClassRoom(CLSID,root.PersonID);
+            selectTable.RefreshButtionInfo(CourseInfo);
         }
     }
 }

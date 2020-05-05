@@ -123,6 +123,30 @@ references course_information(course_id);
 
 
 DELIMITER $$
+DROP procedure if exists TrySelect_Course ;
+create procedure TrySelect_Course(in iStudent_id bigint(1),in icourse_id bigint(1))
+begin
+    insert into select_information (Student_id,course_id) values (iStudent_id,icourse_id);
+end
+$$
+DELIMITER $$
+DROP procedure if exists Select_Course ;
+create procedure Select_Course(in iStudent_id bigint(1),in icourse_id bigint(1),out Result int(1))
+begin
+    start TRANSACTION 
+    set @MaxCap = 0;
+    set @CurCap = 0;
+    select Max_capacity into @MaxCap from course_information where course_id = icourse_id;
+    select Now_capacity into @CurCap from course_information where course_id = icourse_id for update;
+    if(@CurCap < @MaxCap) THEN
+        update course_information set Now_capacity=@CurCap+1 where course_id = icourse_id;
+        set Result = 1;
+    ELSE
+        set Result = 0;
+    END IF;
+    commit 
+end
+$$
 
 DROP procedure if exists AddAcademy ;
 create procedure AddAcademy(in iAcademy_name varchar(24))
@@ -194,7 +218,7 @@ end
 $$
 
 DROP procedure if exists PassWordCheckStu ;
-create procedure PassWordCheck(in idn bigint(1),in iPSD varchar(24),out Correct int(1) )
+create procedure PassWordCheckStu(in idn bigint(1),in iPSD varchar(24),out Correct int(1) )
 begin
     set @temp = '';
     select passwords into @temp from student where student_id = idn;
@@ -249,4 +273,4 @@ end
 $$
 DELIMITER ;
 
-insert into jwc_information(Clerk_id,Clerk_name,Gender,Passwords)values(1,'高','m','1');
+insert into jwc_information(Clerk_id,Clerk_name,Gender,Passwords)values(1,'高','M','1');

@@ -346,12 +346,14 @@ namespace StudentManagement.DataBase
         {
             return getXXXXByID("teacher", "Teacher_id", ID);
         }
-        public DataTable getCourseOfClassRoom(long classRoomID)
+        public DataTable getCourseOfClassRoom(long classRoomID,long TeacherID)
         {
             DataTable s = new DataTable();
             mysqlcon.Open();
             MySqlCommand mySqlCommand = 
-                new MySqlCommand("select * from course_information where Classroom_id = "+classRoomID.ToString()+";", 
+                new MySqlCommand("select teacher_name ,Classroom_name,course_information.* from course_information,teacher,classroom_information where " +
+                "teacher.teacher_id=course_information.teacher_id and course_information.classroom_id=classroom_information.classroom_id and (classroom_information.Classroom_id = " + classRoomID.ToString()+
+                " or teacher.Teacher_id = " + TeacherID.ToString()+ ") ;",
                 mysqlcon);
             mySqlCommand.CommandType = CommandType.Text;
             MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(mySqlCommand);
@@ -523,6 +525,7 @@ namespace StudentManagement.DataBase
             }
             catch (Exception e)
             {
+                MessageBox.Show(e.Message);
                 mysqlcon.Close();
                 return false;
             }
@@ -571,7 +574,7 @@ namespace StudentManagement.DataBase
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show("添加课程失败，可能是添加了课程名相同的课程");
                 ret = false;
             }
             mysqlcon.Close();

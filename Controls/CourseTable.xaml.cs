@@ -133,6 +133,13 @@ namespace StudentManagement.Controls
                     btn[i,j].SetValue(Dp, i * Column + j);
                     pres[i, j] = 0;
                     btn[i, j].Click += button_Click;
+                    Label s = new Label();
+                    TextBlock S = new TextBlock();
+                    S.TextWrapping = TextWrapping.WrapWithOverflow;
+                    S.Text = "";
+                    S.Width = btn[i, j].Width/2;
+                    S.Height = btn[i, j].Height;
+                    btn[i, j].Content = S;
                 }
             }
             this.setHeader(info);
@@ -175,32 +182,46 @@ namespace StudentManagement.Controls
             {
                 pres[i / Column, i % Column] = 0;
                 btn[i / Column, i % Column].Background = brush_defau;
+                ((TextBlock)(btn[i / Column, i % Column].Content)).Text = "";
             }
         }
-
-        public void PanelSetCannot()
+        private void SetButton(int i,String info)
         {
-            int tot = Column * Row;
-            for (int i = 0; i < tot; ++i)
+            pres[i / Column, i % Column] = 2;
+            btn[i / Column, i % Column].Background = brush_Cannot;
+            ((TextBlock)btn[i / Column, i % Column].Content) .Text= info;
+        }
+        private int log2(long s)
+        {
+            int cnt = 0;
+            while (s > 1)
             {
-                if (((1L << i) & ret) != 0)
+                s >>= 1;
+                ++cnt;
+            }
+            return cnt;
+        }
+        public void PanelSetCannot(DataTable Course)
+        {
+            for(int i = 0; i < Course.Rows.Count; ++i)
+            {
+                long TimeD =(long) Course.Rows[i]["Class_Time"];
+                String Info = Course.Rows[i]["teacher_name"].ToString() + ",\n" + Course.Rows[i]["course_name"] + ",\n" +
+                    Course.Rows[i]["classroom_name"];
+
+                while (TimeD != 0)
                 {
-                    ret ^= (1L << i);
-                    pres[i / Column, i % Column] = 2;
-                    btn[i / Column, i % Column].Background = brush_Cannot;
+                    long k = (-TimeD) & (TimeD);
+                    SetButton(log2(k), Info);
+                    TimeD -= k;
                 }
             }
         }
         public void RefreshButtionInfo(DataTable courseInfo)
         {
-            long cur = 0;
-            for (int i = 0; i < courseInfo.Rows.Count; ++i)
-            {
-                cur |= (long)courseInfo.Rows[i]["Class_Time"];
-            }
+            
             PanelClear();
-            ret = cur;
-            PanelSetCannot();
+            PanelSetCannot(courseInfo);
         }
     }
 

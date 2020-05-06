@@ -126,6 +126,12 @@
     <Compile Include="Controls\UserControlMenuItem.xaml.cs">
       <DependentUpon>UserControlMenuItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainPageDesign\CurrentCourseDesign.xaml.cs">
+      <DependentUpon>CurrentCourseDesign.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPageDesign\SelectCourseDesign.xaml.cs">
+      <DependentUpon>SelectCourseDesign.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManagementDesign\TeacherAddDesign.xaml.cs">
       <DependentUpon>TeacherAddDesign.xaml</DependentUpon>
     </Compile>
@@ -151,11 +157,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPageDesign\CourseChoosenPage\CurrentYearPage.xaml">
+    <Page Include="MainPageDesign\CurrentCourseDesign.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPageDesign\CourseChoosenPage\PrevYearPage.xaml">
+    <Page Include="MainPageDesign\SelectCourseDesign.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,12 +220,6 @@
     <Compile Include="Controls\DropDownMenu.cs" />
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainPageDesign\CourseChoosenPage\CurrentYearPage.xaml.cs">
-      <DependentUpon>CurrentYearPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainPageDesign\CourseChoosenPage\PrevYearPage.xaml.cs">
-      <DependentUpon>PrevYearPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPageDesign\SelfManagement.xaml.cs">
       <DependentUpon>SelfManagement.xaml</DependentUpon>

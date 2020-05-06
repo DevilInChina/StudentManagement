@@ -106,8 +106,13 @@ namespace StudentManagement.Controls
         public int Credit { get; set; }
         public long Teacher_Id { get; set; }
         public int MaxCap { get; set; }
+        public int CurCap { get; set; }
         public long Class_Time { get; set; }
-        public Course_info(String name, long Teacher_Id, long Cls_id, long Maj_id, int MaxCap, int Credit,long Class_Time)
+        public String teacher_Name { get; set; }
+        public String class_Name { get; set; }
+        public Course_info(String name, long Teacher_Id, long Cls_id,
+            long Maj_id, int MaxCap, int Credit,long Class_Time,
+            int CurCap=0,String teacher_name=null,String class_Name =null)
         {
             this.name = name;
             this.cls_id = Cls_id;
@@ -116,8 +121,43 @@ namespace StudentManagement.Controls
             this.MaxCap = MaxCap;
             this.Credit = Credit;
             this.Class_Time = Class_Time;
+            this.CurCap = CurCap;
+            this.teacher_Name = teacher_name;
+            this.class_Name = class_Name;
         }
     }
 
+    public class CourseShowed_Info
+    {
+        public String course_name { get; set; }
+        public String Teacher_name { get; set; }
+        public String Classroom_name { get; set; }
+        public int Max_capacity { get; set; }
+        public int Credit { get; set; }
+        public long Class_Time { get; set; }
+        public int Now_capacity { get; set; }
+        public long course_id { get; set; }
+        public CourseShowed_Info(
+            String course_name,
+            String Teacher_name,
+            String Classroom_name,
+            int Max_capacity,
+            int Credit,
+            long Class_Time,
+            int Now_capacity,
+            long course_id
+            )
+        {
+            this.course_name = course_name;
+            this.Teacher_name = Teacher_name;
+            this.Classroom_name = Classroom_name;
+            this.Max_capacity = Max_capacity;
+            this.Credit = Credit;
+            this.Class_Time = Class_Time;
+            this.Now_capacity = Now_capacity;
+            this.course_id = course_id;
+
+        }
+    }
 
 }

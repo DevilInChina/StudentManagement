@@ -9,6 +9,8 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Windows;
 using StudentManagement.Controls;
+using Org.BouncyCastle.Asn1.Cmp;
+
 namespace StudentManagement.DataBase
 {
     public class StaticDataBase
@@ -333,6 +335,10 @@ namespace StudentManagement.DataBase
             mysqlcon.Close();
             return s;
         }
+        public DataTable getSelectedCourseByID(long ID)
+        {
+            return getXXXXByID("select_information", "Student_id", ID);
+        }
 
         public DataTable getStudentByID(long ID)
         {
@@ -346,14 +352,28 @@ namespace StudentManagement.DataBase
         {
             return getXXXXByID("teacher", "Teacher_id", ID);
         }
-        public DataTable getCourseOfClassRoom(long classRoomID,long TeacherID)
+        /// <summary>
+        /// 得到教师和教室的上课信息
+        /// </summary>
+        /// <param name="classRoomID"></param>
+        /// <param name="TeacherID"></param>
+        /// <returns></returns>
+        public DataTable getCourseOfClassRoom(long classRoomID,long TeacherID,bool Teacher = true)
         {
             DataTable s = new DataTable();
             mysqlcon.Open();
+            String Command = "select teacher_name ,Classroom_name,course_information.* from course_information,teacher,classroom_information where " +
+                "teacher.teacher_id=course_information.teacher_id and course_information.classroom_id=classroom_information.classroom_id";
+            if (Teacher)
+            {
+                Command += "and(classroom_information.Classroom_id = " + classRoomID.ToString() +
+                " or teacher.Teacher_id = " + TeacherID.ToString() + ") ;";
+            }else
+            {
+                Command += ";";
+            }
             MySqlCommand mySqlCommand = 
-                new MySqlCommand("select teacher_name ,Classroom_name,course_information.* from course_information,teacher,classroom_information where " +
-                "teacher.teacher_id=course_information.teacher_id and course_information.classroom_id=classroom_information.classroom_id and (classroom_information.Classroom_id = " + classRoomID.ToString()+
-                " or teacher.Teacher_id = " + TeacherID.ToString()+ ") ;",
+                new MySqlCommand(Command,
                 mysqlcon);
             mySqlCommand.CommandType = CommandType.Text;
             MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(mySqlCommand);
@@ -581,6 +601,56 @@ namespace StudentManagement.DataBase
 
             return ret;
 
+        }
+
+        private int DeleteOrSelectACourse(String procedure,long iStudent_id, long icourse_id)
+        {
+            mysqlcon.Open();
+            MySqlDataAdapter mysqldata = new MySqlDataAdapter();
+
+            mysqldata.UpdateCommand = new MySqlCommand(procedure, mysqlcon);
+            mysqldata.UpdateCommand.CommandType = CommandType.StoredProcedure;
+            MySqlParameter[] mySqlParameter = new MySqlParameter[7];
+            int indx = 0; 
+           
+            mySqlParameter[indx] = new MySqlParameter("?iStudent_id", MySqlDbType.Int64, 1);
+            mySqlParameter[indx++].Value = iStudent_id;
+           
+            mySqlParameter[indx] = new MySqlParameter("?icourse_id", MySqlDbType.Int64, 1);
+            mySqlParameter[indx++].Value = icourse_id;
+           
+            mySqlParameter[indx] = new MySqlParameter("?Result", MySqlDbType.Int32, 1);
+            mySqlParameter[indx++].Value = -1;
+            MessageBox.Show(iStudent_id.ToString() + " " + icourse_id.ToString());
+            for (int i = 0; i < indx-1; ++i)
+            {
+                mySqlParameter[i].Direction = ParameterDirection.Input;
+                mysqldata.UpdateCommand.Parameters.Add(mySqlParameter[i]);
+            }
+
+            mySqlParameter[indx-1].Direction = ParameterDirection.Output;
+            mysqldata.UpdateCommand.Parameters.Add(mySqlParameter[indx-1]);
+            MessageBox.Show(mysqldata.UpdateCommand.CommandText);
+            try
+            {
+                mysqldata.UpdateCommand.ExecuteNonQuery();
+                
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            mysqlcon.Close();
+            MessageBox.Show(mySqlParameter[indx - 1].Value.ToString());
+            return (int)mySqlParameter[indx-1].Value;
+        }
+        public int SelectCourse(long iStudent_id, long icourse_id)
+        {
+            return DeleteOrSelectACourse("Select_Course", iStudent_id, icourse_id);
+        }
+        public int DeletCourse(long iStudent_id, long icourse_id)
+        {
+            return DeleteOrSelectACourse("Delete_Course", iStudent_id, icourse_id);
         }
 
     }

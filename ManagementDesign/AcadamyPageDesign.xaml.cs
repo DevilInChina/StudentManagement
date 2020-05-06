@@ -44,9 +44,9 @@ namespace StudentManagement.ManagementDesign
                 addMenuItem(temp);
                 ((MenuItem)Menu1.Items[Cnt - 1]).
                     SetValue(dp, new SingleAcademyPage.SingleAcademyPage(
-                        root, ((long)(data.Rows[Cnt-1]["Academy_id"])), temp));
+                        root, ((long)(data.Rows[Cnt - 1]["Academy_id"])), temp));
             }
-            
+
         }
         public void addMenuItem(String header)
         {
@@ -110,7 +110,7 @@ namespace StudentManagement.ManagementDesign
 
         public void Click()
         {
-            //throw new NotImplementedException();
+            
         }
     }
 }

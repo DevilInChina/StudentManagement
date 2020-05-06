@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="StudentManagement.MainPageDesign.SelectCourseDesign"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StudentManagement.MainPageDesign"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             >
+    <Grid>
+        <DataGrid x:Name="studentItemTemplate" Margin="50,100,200,10" IsReadOnly="True" AutoGenerateColumns="False" SelectionChanged="studentItemTemplate_SelectionChanged">
+            <DataGrid.Columns >
+                <DataGridTextColumn Binding="{Binding course_id}" Header="课程号"/>
+                <DataGridTextColumn Binding="{Binding course_name}" Header="课程名"/>
+                <DataGridTextColumn Binding="{Binding Teacher_name}" Header="教师"/>
+                <DataGridTextColumn Binding="{Binding Classroom_name}" Header="地点"/> 
+                <DataGridTextColumn Binding="{Binding Now_capacity}" Header="当前人数"/>
+                <DataGridTextColumn Binding="{Binding Max_capacity}" Header="课容量"/>
+                <DataGridTextColumn Binding="{Binding Credit}" Header="学分"/>
+                <DataGridTextColumn Binding="{Binding Class_Time}" Header="上课时间"/>
+               
+            </DataGrid.Columns>
+               
+            
+        </DataGrid>
+        <Button x:Name="button" Content="选课" HorizontalAlignment="Left" Margin="725,100,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+    </Grid>
+</UserControl>

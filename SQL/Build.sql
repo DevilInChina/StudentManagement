@@ -112,8 +112,7 @@ references classroom_information(Classroom_id);
 create table select_information(
     Select_id bigint(1) primary key auto_increment,
     Student_id bigint(1) not null ,
-    course_id bigint(1) not null,
-    Enable varchar(8) not null
+    course_id bigint(1) not null
 );
 
 alter table select_information add constraint outkey14 foreign key (Student_id) 
@@ -122,32 +121,51 @@ alter table select_information add constraint outkey15 foreign key (course_id)
 references course_information(course_id);
 
 
-DELIMITER $$
-DROP procedure if exists TrySelect_Course ;
-create procedure TrySelect_Course(in iStudent_id bigint(1),in icourse_id bigint(1))
-begin
-    insert into select_information (Student_id,course_id) values (iStudent_id,icourse_id);
-end
-$$
+
 DELIMITER $$
 DROP procedure if exists Select_Course ;
 create procedure Select_Course(in iStudent_id bigint(1),in icourse_id bigint(1),out Result int(1))
 begin
-    start TRANSACTION 
-    set @MaxCap = 0;
-    set @CurCap = 0;
-    select Max_capacity into @MaxCap from course_information where course_id = icourse_id;
-    select Now_capacity into @CurCap from course_information where course_id = icourse_id for update;
-    if(@CurCap < @MaxCap) THEN
-        update course_information set Now_capacity=@CurCap+1 where course_id = icourse_id;
-        set Result = 1;
+    start TRANSACTION ;
+    select count(*) into @Cnt from select_information where course_id = icourse_id and student_id = iStudent_id; 
+    
+    if(@cnt = 0) THEN
+        select Max_capacity into @MaxCap from course_information where course_id = icourse_id;
+        select Now_capacity into @CurCap from course_information where course_id = icourse_id for update;
+        if(@CurCap < @MaxCap) THEN
+            insert into select_information (Student_id,course_id) values (iStudent_id,icourse_id);
+            update course_information set Now_capacity=@CurCap+1 where course_id = icourse_id;
+            set Result = 1;#正常添加
+        ELSE
+            set Result = 0;#添加失败
+        END IF;
     ELSE
-        set Result = 0;
-    END IF;
-    commit 
+        set Result = 2;#代表已经添加
+    end if;
+    commit ;
 end
 $$
-
+DROP procedure if exists Delete_Course ;
+create procedure Delete_Course(in iStudent_id bigint(1),in icourse_id bigint(1),out Result int(1))
+begin
+    start TRANSACTION ;
+    select count(*) into @Cnt from select_information where course_id = icourse_id and student_id = iStudent_id; 
+    if(@Cnt = 1) THEN
+        select Max_capacity into @MaxCap from course_information where course_id = icourse_id;
+        select Now_capacity into @CurCap from course_information where course_id = icourse_id for update;
+        if(@CurCap > 0) THEN
+            delete from select_information where course_id = icourse_id and student_id = iStudent_id;
+            update course_information set Now_capacity=@CurCap-1 where course_id = icourse_id;
+            set Result = 1;#正常删除
+        ELSE
+            set Result = 0;#删除失败
+        END IF;
+    ELSE
+        set Result = 2;#不存在记录
+    end if;
+    commit ;
+end 
+$$
 DROP procedure if exists AddAcademy ;
 create procedure AddAcademy(in iAcademy_name varchar(24))
 begin

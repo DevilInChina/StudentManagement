@@ -48,6 +48,10 @@ namespace StudentManagement.Controls
         public Brush brush_defau;
         public Brush brush_chose;
         public Brush brush_Cannot;
+        /// <summary>
+        /// 初始化课程表，6*7，宽度805
+        /// 
+        /// </summary>
         public CourseTable()
         {
             InitializeComponent();
@@ -114,14 +118,20 @@ namespace StudentManagement.Controls
         public Button[,] btn;
         public int[,] pres;
         private long ret;
+        private long confilict;
         DependencyProperty Dp;
         public CourseTableSelect() : base()
         {
             btn = new Button[Row, Column];
             pres = new int[Row, Column];
             ret = 0;
+            confilict = 0;
         }
-        public void init(DependencyProperty Dp,String info)
+        public long GetConfilictInfo()
+        {
+            return confilict;
+        }
+        public void init(DependencyProperty Dp,String info,bool SetEvent = true)
         {
             this.Dp = Dp;
             for (int i = 0; i < Row; ++i)
@@ -132,8 +142,9 @@ namespace StudentManagement.Controls
                     btn[i, j] = (Button)(dockPanels[i, j].Children[0]);
                     btn[i,j].SetValue(Dp, i * Column + j);
                     pres[i, j] = 0;
+                    if(SetEvent)
                     btn[i, j].Click += button_Click;
-                    Label s = new Label();
+                    
                     TextBlock S = new TextBlock();
                     S.TextWrapping = TextWrapping.WrapWithOverflow;
                     S.Text = "";
@@ -178,6 +189,7 @@ namespace StudentManagement.Controls
         {
             int tot = Column * Row;
             ret = 0;
+            confilict = 0;
             for (int i = 0; i < tot; ++i)
             {
                 pres[i / Column, i % Column] = 0;
@@ -185,10 +197,10 @@ namespace StudentManagement.Controls
                 ((TextBlock)(btn[i / Column, i % Column].Content)).Text = "";
             }
         }
-        private void SetButton(int i,String info)
+        private void SetButton(int i,String info, Brush brush)
         {
             pres[i / Column, i % Column] = 2;
-            btn[i / Column, i % Column].Background = brush_Cannot;
+            btn[i / Column, i % Column].Background = brush;
             ((TextBlock)btn[i / Column, i % Column].Content) .Text= info;
         }
         private int log2(long s)
@@ -201,27 +213,35 @@ namespace StudentManagement.Controls
             }
             return cnt;
         }
-        public void PanelSetCannot(DataTable Course)
+        public void PanelSetCourse(DataTable Course,Brush brush,Brush[]Colors = null)
         {
             for(int i = 0; i < Course.Rows.Count; ++i)
             {
-                long TimeD =(long) Course.Rows[i]["Class_Time"];
+                long TimeD =long.Parse(Course.Rows[i]["Class_Time"].ToString());
                 String Info = Course.Rows[i]["teacher_name"].ToString() + ",\n" + Course.Rows[i]["course_name"] + ",\n" +
                     Course.Rows[i]["classroom_name"];
-
+                confilict |= TimeD;
+                long TimeS = TimeD;
                 while (TimeD != 0)
                 {
                     long k = (-TimeD) & (TimeD);
-                    SetButton(log2(k), Info);
+                    if (Colors == null)
+                    {
+                        SetButton(log2(k), Info, brush);
+                    }
+                    else
+                    {
+                        SetButton(log2(k), Info, Colors[TimeS%Colors.Length]);
+                    }
                     TimeD -= k;
                 }
             }
         }
-        public void RefreshButtionInfo(DataTable courseInfo)
+        public void RefreshButtionInfo(DataTable courseInfo,Brush [] Colors = null)
         {
             
             PanelClear();
-            PanelSetCannot(courseInfo);
+            PanelSetCourse(courseInfo,brush_Cannot,Colors);
         }
     }
 

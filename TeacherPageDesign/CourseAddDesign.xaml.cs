@@ -28,8 +28,7 @@ namespace StudentManagement.TeacherPageDesign
         {
             InitializeComponent();
             this.root = root;
-            DependencyProperty Dp = DependencyProperty.Register("Btn_to_int", typeof(int), typeof(Button));
-            selectTable.init(Dp,"选择上课时间");//#FF2196F3
+            selectTable.init(root.Button_Int,"选择上课时间");//#FF2196F3
             ClassRoomInfo = root.dataBase.getClassRoom();
             DataColumn[] keys = new DataColumn[1];
             keys[0] = ClassRoomInfo.Columns["Classroom_name"];

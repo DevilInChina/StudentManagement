@@ -32,6 +32,8 @@ namespace StudentManagement
         public StaticDataBase dataBase;
         public int type;//0 学生 1 教师 2 管理
         public DependencyProperty ComboBoxItem_Long;
+
+        public DependencyProperty Button_Int; 
         public long PersonID { get; }
         public void LoadStudent()
         {
@@ -53,9 +55,11 @@ namespace StudentManagement
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("个人管理", SubMenu[i], PackIconKind.Person), this));
             ++i;
             SubMenu[i] = new List<SubItem>();
-            SubMenu[i].Add(new SubItem("本学期课表"));
-
-            SubMenu[i].Add(new SubItem("选课管理"));
+            CurrentCourseDesign temp = new CurrentCourseDesign(this);
+            SubMenu[i].Add(new SubItem("本学期课表",temp));
+            SelectCourseDesign temp2 = new SelectCourseDesign(this, temp);
+            temp.init(temp2);
+            SubMenu[i].Add(new SubItem("选课管理",temp2));
             Menu.Children.Add(new UserControlMenuItem(new ItemMenu("选课管理", SubMenu[i], PackIconKind.Cart), this));
             ++i;
             SubMenu[i] = new List<SubItem>();
@@ -124,6 +128,7 @@ namespace StudentManagement
         public MainWindow(StaticDataBase mysqlConnector,long ID)
         {
             ComboBoxItem_Long = DependencyProperty.Register("ComboBoxItem_Long", typeof(long), typeof(ComboBoxItem));
+            Button_Int = DependencyProperty.Register("Btn_to_int", typeof(int), typeof(Button));
             InitializeComponent();
             MainThemeColor = new Color();
             MainThemeColor.R = 0;

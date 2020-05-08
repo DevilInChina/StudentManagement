@@ -119,7 +119,7 @@ namespace StudentManagement.Controls
         public int[,] pres;
         private long ret;
         private long confilict;
-        DependencyProperty Dp;
+        public DependencyProperty Dp { get; set; }
         public CourseTableSelect() : base()
         {
             btn = new Button[Row, Column];
@@ -218,7 +218,8 @@ namespace StudentManagement.Controls
             for(int i = 0; i < Course.Rows.Count; ++i)
             {
                 long TimeD =long.Parse(Course.Rows[i]["Class_Time"].ToString());
-                String Info = Course.Rows[i]["teacher_name"].ToString() + ",\n" + Course.Rows[i]["course_name"] + ",\n" +
+                String Info = Course.Rows[i]["teacher_name"].ToString() + ",\n" + 
+                    Course.Rows[i]["course_name"] + ",\n" +
                     Course.Rows[i]["classroom_name"];
                 confilict |= TimeD;
                 long TimeS = TimeD;

@@ -25,12 +25,14 @@ namespace StudentManagement.ManagementDesign
         private DataTable AcadamyInfo;
         private DataTable MajorInfo;
         private DataTable TeacherTable;
+        private DataRowView SelectedTeacher;
         public TeacherAddDesign(MainWindow root)
         {
             InitializeComponent();
             this.root = root;
             AcadamyInfo = null;
             MajorInfo = null;
+
         }
 
         public void Click()
@@ -42,9 +44,7 @@ namespace StudentManagement.ManagementDesign
             }
             AcadamyInfo = root.dataBase.getAcadamy();
             MajorInfo = root.dataBase.getMajor();
-           // DataGridCell s = new DataGridCell();
-            
-
+            RefTeacher();
         }
 
         public void init(MainWindow curWindow)
@@ -55,6 +55,36 @@ namespace StudentManagement.ManagementDesign
         private void button_Click(object sender, RoutedEventArgs e)
         {
             AddTeacherWindow s=  new AddTeacherWindow("添加教师信息",AcadamyInfo, MajorInfo, root);
+        }
+
+        private void RefTeacher()
+        {
+
+            TeacherTable = root.dataBase.getTeacher();
+            TeacherInfo.ItemsSource = TeacherTable.DefaultView;
+
+        }
+        private void Refesh_button_Click(object sender, RoutedEventArgs e)
+        {
+            RefTeacher();
+        }
+
+        private void Delete_burron_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedTeacher != null)
+            {
+                root.dataBase.delete_Teacher(long.Parse(SelectedTeacher.Row["Teacher_id"].ToString()));
+                SelectedTeacher = null;
+                RefTeacher();
+            }
+            else
+            {
+                MessageBox.Show("请选择一位教师");
+            }
+        }
+        private void TeacherInfo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedTeacher = (DataRowView)TeacherInfo.SelectedItem;
         }
     }
 }

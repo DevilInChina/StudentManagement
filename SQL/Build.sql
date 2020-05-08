@@ -289,6 +289,25 @@ begin
     (iTeacher_id,icourse_name,iCredit,iMax_capacity,imajor_id,iClassroom_id,0,iClass_Time);
 end
 $$
+
+
+DROP procedure if exists Delete_Course_Of_Teacher ;
+create procedure Delete_Course_Of_Teacher(in iTeacher_id bigint(1))
+begin
+    delete from select_information where(select_information.course_id in
+    (select course_information.course_id from course_information where Teacher_id = iTeacher_id));
+    delete from course_information where Teacher_id = iTeacher_id;
+end
+$$
+
+DROP procedure if exists Delete_Teacher ;
+create procedure Delete_Teacher(in iTeacher_id bigint(1))
+begin
+    call Delete_Course_Of_Teacher(iTeacher_id);
+    delete from teacher where Teacher_id = iTeacher_id;
+end
+$$
+
 DELIMITER ;
 
 insert into jwc_information(Clerk_id,Clerk_name,Gender,Passwords)values(1,'高','M','1');

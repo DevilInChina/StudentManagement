@@ -80,7 +80,7 @@ namespace StudentManagement.TeacherPageDesign
             ((ComboBoxItem)Classroom_comboBox.SelectedItem).Content.ToString());
             long CLSID = (long)dataRow["Classroom_id"];
             int Cap = int.Parse(((Label)Cap_comboBox.SelectedItem).Content.ToString());
-            MessageBox.Show(CLSID.ToString());
+            
             MessageBoxResult RES =
              MessageBox.Show("确定添加这门学分为"+res.ToString()+"的课程？", "提示", MessageBoxButton.YesNo);
             if (RES == MessageBoxResult.Yes)

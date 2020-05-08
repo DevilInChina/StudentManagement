@@ -5,11 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StudentManagement.MainPageDesign"
              xmlns:Controls="clr-namespace:StudentManagement.Controls" x:Class="StudentManagement.MainPageDesign.CurrentCourseDesign"
-             mc:Ignorable="d" 
-             d:DesignHeight="813.616" d:DesignWidth="1015.357">
+             mc:Ignorable="d" Height="788.816" Width="1006.557">
     <Grid>
 
-        <Controls:CourseTableSelect x:Name="CourseTable" HorizontalAlignment="Left" Height="673" Margin="10,10,0,0" VerticalAlignment="Top" Width="920"/>
+
+
+        <ScrollViewer HorizontalAlignment="Left" Height="769" Margin="10,10,0,0" VerticalAlignment="Top" Width="968"
+                       Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <Controls:CourseTableSelect x:Name="CourseTable" HorizontalAlignment="Left" Height="655" Margin="0,0,0,0" VerticalAlignment="Top" Width="920"/>
+
+                <Button x:Name="button" Content="退课" Width="75" d:LayoutOverrides="Height"  Margin="10,10,0,0" Background="Red" Click="button_Click"/>
+                <DataGrid x:Name="Selected_course_DataGrid" HorizontalAlignment="Left" Height="500" Margin="10,10,0,0" 
+                  VerticalAlignment="Top" Width="920" IsReadOnly="True" 
+                  AutoGenerateColumns="False" SelectionChanged="selected_course_SelectionChanged">
+                    <DataGrid.Columns >
+                        <DataGridTextColumn Binding="{Binding course_id}" Header="课程号"/>
+                        <DataGridTextColumn Binding="{Binding course_name}" Header="课程名"/>
+                        <DataGridTextColumn Binding="{Binding Teacher_name}" Header="教师"/>
+                        <DataGridTextColumn Binding="{Binding Classroom_name}" Header="地点"/>
+                        <DataGridTextColumn Binding="{Binding Now_capacity}" Header="当前人数"/>
+                        <DataGridTextColumn Binding="{Binding Max_capacity}" Header="课容量"/>
+                        <DataGridTextColumn Binding="{Binding Credit}" Header="学分"/>
+                        <DataGridTextColumn Binding="{Binding Class_Time}" Header="上课时间"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </ScrollViewer>
 
     </Grid>
 </UserControl>

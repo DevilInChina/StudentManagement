@@ -80,7 +80,8 @@ namespace StudentManagement.MainPageDesign
             }
             else
             {
-                course.SelectCourse(Selected_course);
+                bool ret = course.SelectCourse(Selected_course);
+                
             }
         }
     }

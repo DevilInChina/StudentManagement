@@ -7,8 +7,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="63,45,0,0" Click="button_Click"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="158" Margin="166,154,0,0" VerticalAlignment="Top" Width="455"/>
-
+        <Button x:Name="button" Content="添加教师" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Margin="63,45,0,0" Click="button_Click"/>
+        <Button x:Name="Refesh_button" Content="刷新" HorizontalAlignment="Left" VerticalAlignment="Top" Width="64" Margin="242,45,0,0" Click="Refesh_button_Click" Background="LightGreen"/>
+        <Button x:Name="Delete_burron" Content="删除" HorizontalAlignment="Left" VerticalAlignment="Top" Width="64" Margin="311,45,0,0" Click="Delete_burron_Click" Background="Red"/>
+        <DataGrid x:Name="TeacherInfo" HorizontalAlignment="Left" Height="226" 
+                  Margin="63,100,0,0" VerticalAlignment="Top" Width="600" IsReadOnly="True" 
+                  AutoGenerateColumns="False" SelectionChanged="TeacherInfo_SelectionChanged">
+            <DataGrid.Columns >
+                <DataGridTextColumn Binding="{Binding Teacher_name}" Header="姓名"/>
+                <DataGridTextColumn Binding="{Binding National}" Header="民族"/>
+                <DataGridTextColumn Binding="{Binding Birthday}" Header="生日"/>
+                <DataGridTextColumn Binding="{Binding Gender}" Header="性别"/>
+                <DataGridTextColumn Binding="{Binding Teacher_id}" Header="编号"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

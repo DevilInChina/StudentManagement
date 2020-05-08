@@ -303,7 +303,10 @@ namespace StudentManagement.DataBase
             mysqlcon.Close();
             return s;
         }
-        
+        public DataTable getTeacher()
+        {
+            return getXXXX("teacher");
+        }
         public DataTable getAcadamy()
         {
             return getXXXX("academy_information");
@@ -366,7 +369,7 @@ namespace StudentManagement.DataBase
                 "teacher.teacher_id=course_information.teacher_id and course_information.classroom_id=classroom_information.classroom_id";
             if (Teacher)
             {
-                Command += "and(classroom_information.Classroom_id = " + classRoomID.ToString() +
+                Command += " and(classroom_information.Classroom_id = " + classRoomID.ToString() +
                 " or teacher.Teacher_id = " + TeacherID.ToString() + ") ;";
             }else
             {
@@ -621,7 +624,6 @@ namespace StudentManagement.DataBase
            
             mySqlParameter[indx] = new MySqlParameter("?Result", MySqlDbType.Int32, 1);
             mySqlParameter[indx++].Value = -1;
-            MessageBox.Show(iStudent_id.ToString() + " " + icourse_id.ToString());
             for (int i = 0; i < indx-1; ++i)
             {
                 mySqlParameter[i].Direction = ParameterDirection.Input;
@@ -630,7 +632,6 @@ namespace StudentManagement.DataBase
 
             mySqlParameter[indx-1].Direction = ParameterDirection.Output;
             mysqldata.UpdateCommand.Parameters.Add(mySqlParameter[indx-1]);
-            MessageBox.Show(mysqldata.UpdateCommand.CommandText);
             try
             {
                 mysqldata.UpdateCommand.ExecuteNonQuery();
@@ -641,9 +642,9 @@ namespace StudentManagement.DataBase
                 MessageBox.Show(e.Message);
             }
             mysqlcon.Close();
-            MessageBox.Show(mySqlParameter[indx - 1].Value.ToString());
             return (int)mySqlParameter[indx-1].Value;
         }
+        
         public int SelectCourse(long iStudent_id, long icourse_id)
         {
             return DeleteOrSelectACourse("Select_Course", iStudent_id, icourse_id);
@@ -652,6 +653,30 @@ namespace StudentManagement.DataBase
         {
             return DeleteOrSelectACourse("Delete_Course", iStudent_id, icourse_id);
         }
+        public bool delete_Teacher(long ID)
+        {
+            mysqlcon.Open();
+            MySqlDataAdapter mysqldata = new MySqlDataAdapter();
 
+            mysqldata.DeleteCommand = new MySqlCommand("Delete_Teacher", mysqlcon);
+            mysqldata.DeleteCommand.CommandType = CommandType.StoredProcedure;
+            MySqlParameter name_para = new MySqlParameter("?iTeacher_id", MySqlDbType.Int64, 1);
+            name_para.Value = ID;
+            mysqldata.DeleteCommand.Parameters.Add(name_para);
+            name_para.Direction = ParameterDirection.Input;
+            try
+            {
+                mysqldata.DeleteCommand.ExecuteNonQuery();
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.Message);
+                mysqlcon.Close();
+                return false;
+            }
+
+            mysqlcon.Close();
+            return true;
+        }
     }
 }

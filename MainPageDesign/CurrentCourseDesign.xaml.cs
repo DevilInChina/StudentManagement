@@ -26,6 +26,8 @@ namespace StudentManagement.MainPageDesign
         SelectCourseDesign courseSelected = null;
         DataTable stored_selectedCourse = null;
         Brush []CourseColors = null;
+        List<CourseShowed_Info> Selected_CourseInfo;
+        DataRowView selected_course;
         public CurrentCourseDesign(MainWindow prev)
         {
             InitializeComponent();
@@ -49,7 +51,7 @@ namespace StudentManagement.MainPageDesign
             DataTable temp = root.dataBase.getSelectedCourseByID(root.PersonID);
             stored_selectedCourse = courseSelected.TotalCourse.Clone();
             String Str = null;
-            
+            Selected_CourseInfo = new List<CourseShowed_Info>();
             for (int i = 0; i < temp.Rows.Count; ++i)
             {
 
@@ -62,6 +64,7 @@ namespace StudentManagement.MainPageDesign
                 
 
             }
+            Selected_course_DataGrid.ItemsSource = stored_selectedCourse.DefaultView;
             CourseTable.RefreshButtionInfo(stored_selectedCourse,CourseColors);
 
         }
@@ -75,33 +78,80 @@ namespace StudentManagement.MainPageDesign
         {
             throw new NotImplementedException();
         }
+        private bool DeletCourse(DataRowView deletedC)
+        {
+            if (deletedC != null)
+            {
+                if (root.dataBase.DeletCourse(root.PersonID,
+                    long.Parse(deletedC.Row["course_id"].ToString())) == 1)
+                {
+                    stored_selectedCourse.Rows.Remove(deletedC.Row);
+
+                    CourseTable.RefreshButtionInfo(stored_selectedCourse, CourseColors);
+                    return true;
+                }
+                else return false;
+
+            }
+            else
+            {
+                MessageBox.Show("请选择一门课程进行再删除");
+                return false;
+            }
+        }
+
+
         public bool SelectCourse(CourseShowed_Info selected)
         {
-            long s = selected.Class_Time;
-            if((s& CourseTable.GetConfilictInfo()) != 0)
+            if (selected != null)
             {
-                MessageBox.Show("上课时间冲突");
+                long s = selected.Class_Time;
+                if ((s & CourseTable.GetConfilictInfo()) != 0)
+                {
+                    MessageBox.Show("上课时间冲突");
+                    return false;
+                }
+                else
+                {
+                    int res = root.dataBase.SelectCourse(root.PersonID, selected.course_id);
+                    switch (res)
+                    {
+                        case 0:
+                            MessageBox.Show("添加失败，课容量已满");
+                            break;
+                        case 1:
+                            MessageBox.Show("添加成功");
+                            DataRow[] dataRows = courseSelected.TotalCourse.Select("course_id=" + selected.course_id);
+                            Selected_CourseInfo.Add(selected);
+                            stored_selectedCourse.Rows.Add(dataRows[0].ItemArray);
+
+                            CourseTable.RefreshButtionInfo(stored_selectedCourse, CourseColors);
+                            
+                            //Selected_course_DataGrid.ItemsSource = Selected_CourseInfo;
+                            return true;
+                        case 2:
+                            MessageBox.Show("请勿重复添加");
+                            break;
+                    }
+
+                }
                 return false;
             }
             else
             {
-                int res = root.dataBase.SelectCourse(root.PersonID, selected.course_id) ;
-                switch (res)
-                {
-                    case 0:
-                        MessageBox.Show("添加失败，课容量已满");
-                        break;
-                    case 1:
-                        MessageBox.Show("添加成功");
-
-                        return true;
-                    case 2:
-                        MessageBox.Show("请勿重复添加");
-                        break;
-                }
-
+                return false;
             }
-            return false;
+        }
+
+        private void selected_course_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selected_course =(DataRowView) Selected_course_DataGrid.SelectedItem;
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            DeletCourse(selected_course);
+            selected_course = null;
         }
     }
 }

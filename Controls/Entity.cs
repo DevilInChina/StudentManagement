@@ -82,6 +82,24 @@ namespace StudentManagement.Controls
             this.Teaid = Teaid;
         }
     }
+    public class Teacher_Info
+    {
+        public String Teacher_name;
+        public String National;
+        public String Birthday;
+        public String Gender;
+        public long Teacher_id;
+        public Teacher_Info(String name, String national, String birthday, String gender,  long Teaid)
+        {
+            this.Teacher_name = name;
+            this.National = national;
+            this.Birthday = birthday;
+            this.Gender = gender;
+            this.Teacher_id = Teaid;
+        }
+    }
+
+
 
     public class Class_info
     {
